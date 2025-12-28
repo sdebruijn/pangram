@@ -1,5 +1,5 @@
 const letters = ["a", "e", "g", "n", "r", "w", "z"];
-const centerLetter = "r";
+const centerLetter = "w";
 const words = [
     "aangewezen", "aanwennen", "argwaan", "geween", "geweer", "gewennen", "gewezen",
     "nawee", "nawegen", "regenweer", "renwagen", "waag", "waan", "waar", "waaraan",
@@ -18,6 +18,7 @@ const letterKeys = document.querySelectorAll('.letter-key');
 const backspaceBtn = document.getElementById('backspace-btn');
 const shuffleBtn = document.getElementById('shuffle-btn');
 const submitBtn = document.getElementById('submit-btn');
+const scoreSpan = document.getElementById('score');
 const guessedWordsSummary = document.querySelector('#guessed-words-container summary');
 const guessedWordsList = document.getElementById('guessed-words-list');
 
@@ -29,6 +30,10 @@ letterKeys.forEach(key => {
 
 backspaceBtn.addEventListener('click', () => {
     wordInput.value = wordInput.value.slice(0, -1);
+});
+
+shuffleBtn.addEventListener('click', () => {
+    console.log('Shuffle letters');
 });
 
 submitBtn.addEventListener('click', () => {
@@ -43,29 +48,33 @@ wordInput.addEventListener('keydown', (e) => {
 
 function submitWord() {
     const word = wordInput.value.toLowerCase();
+    console.log(`Submitting word: ${word}`);
     wordInput.value = '';
 
     if (word.length < 4) {
-        // alert("Word must be at least 4 letters long.");
+        console.log('Word too short.');
         return;
     }
     if (!word.includes(centerLetter)) {
-        // alert(`Word must contain the center letter "${centerLetter.toUpperCase()}".`);
+        console.log('Word does not contain center letter.');
         return;
     }
     if (!words.includes(word)) {
-        // alert("Word not in list.");
+        console.log('Word not in list.');
         return;
     }
     if (guessedWords.includes(word)) {
-        // alert("Word already guessed.");
+        console.log('Word already guessed.');
         return;
     }
 
     guessedWords.push(word);
     updateGuessedWords();
-    score += calculateScore(word);
+    const points = calculateScore(word);
+    score += points;
     scoreSpan.textContent = score;
+    console.log(`Word is valid: ${points} points.`);
+    console.log(`Score updated: ${score} points.`);
 }
 
 function updateGuessedWords() {
