@@ -18,9 +18,8 @@ const letterKeys = document.querySelectorAll('.letter-key');
 const backspaceBtn = document.getElementById('backspace-btn');
 const shuffleBtn = document.getElementById('shuffle-btn');
 const submitBtn = document.getElementById('submit-btn');
-const guessedWordsContainer = document.getElementById('guessed-words');
-const scoreSpan = document.getElementById('score');
-const guessedWordsCount = document.querySelector('#guessed-words-container p');
+const guessedWordsSummary = document.querySelector('#guessed-words-container summary');
+const guessedWordsList = document.getElementById('guessed-words-list');
 
 letterKeys.forEach(key => {
     key.addEventListener('click', () => {
@@ -70,13 +69,18 @@ function submitWord() {
 }
 
 function updateGuessedWords() {
-    guessedWordsContainer.innerHTML = '';
-    guessedWords.forEach(word => {
-        const wordElement = document.createElement('span');
-        wordElement.textContent = word;
-        guessedWordsContainer.appendChild(wordElement);
+    // Update summary
+    const recentWords = guessedWords.slice(-5).reverse();
+    guessedWordsSummary.textContent = `Woorden (${guessedWords.length}) ${recentWords.join(', ')}`;
+
+    // Update details list
+    guessedWordsList.innerHTML = '';
+    const sortedWords = [...guessedWords].sort();
+    sortedWords.forEach(word => {
+        const li = document.createElement('li');
+        li.textContent = word;
+        guessedWordsList.appendChild(li);
     });
-    guessedWordsCount.textContent = `Woorden (${guessedWords.length})`;
 }
 
 function calculateScore(word) {
