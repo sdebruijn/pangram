@@ -22,6 +22,8 @@ const scoreSpan = document.getElementById('score');
 const guessedWordsSummary = document.querySelector('#guessed-words-container summary');
 const guessedWordsList = document.getElementById('guessed-words-list');
 
+const wordStats = document.getElementById('word-stats');
+
 letterKeys.forEach(key => {
     key.addEventListener('click', () => {
         wordInput.value += key.textContent;
@@ -70,6 +72,7 @@ function submitWord() {
 
     guessedWords.push(word);
     updateGuessedWords();
+    updateWordStats();
     const points = calculateScore(word);
     score += points;
     scoreSpan.textContent = score;
@@ -107,3 +110,30 @@ function calculateScore(word) {
 
     return points;
 }
+
+function updateWordStats() {
+    let stats = '';
+    for (let i = 0; i < 26; i++) {
+        const letter = String.fromCharCode(97 + i);
+        const wordsStartingWithLetter = guessedWords.filter(word => word.startsWith(letter));
+        if (wordsStartingWithLetter.length > 0) {
+            stats += letter.toUpperCase();
+            wordsStartingWithLetter.forEach((word, index) => {
+                if (index !== 0 && (index) % 4 === 0) {
+                    stats += '.';
+                }
+                if (word.length === 10) {
+                    stats += 'X';
+                } else if (word.length > 10) {
+                    stats += ` ${word.length} `;
+                } else {
+                    stats += word.length;
+                }
+            });
+            stats += '\n';
+        }
+    }
+    wordStats.textContent = stats;
+}
+
+updateWordStats();
