@@ -33,6 +33,16 @@ backspaceBtn.addEventListener('click', () => {
 });
 
 submitBtn.addEventListener('click', () => {
+    submitWord();
+});
+
+wordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        submitWord();
+    }
+});
+
+function submitWord() {
     const word = wordInput.value.toLowerCase();
     wordInput.value = '';
 
@@ -57,7 +67,7 @@ submitBtn.addEventListener('click', () => {
     updateGuessedWords();
     score += calculateScore(word);
     scoreSpan.textContent = score;
-});
+}
 
 function updateGuessedWords() {
     guessedWordsContainer.innerHTML = '';
