@@ -81,13 +81,14 @@ function submitWord() {
         return;
     }
 
+    console.log('Word is valid.');
     guessedWords.push(word);
+    updateGameState();
+}
+
+function updateGameState() {
     updateGuessedWords();
-    const points = calculateScore(word);
-    score += points;
-    scoreSpan.textContent = score;
-    console.log(`Word is valid: ${points} points.`);
-    console.log(`Score updated: ${score} points.`);
+    updateScore();
 }
 
 function updateGuessedWords() {
@@ -105,7 +106,21 @@ function updateGuessedWords() {
     });
 }
 
-function calculateScore(word) {
+function updateScore() {
+    const score = calculateScore();
+    scoreSpan.textContent = score;
+    console.log(`Score updated: ${score} points.`);
+}
+
+function calculateScore() {
+    score = 0;
+    for (const word of guessedWords) {
+        score += calculateWordScore(word);
+    }
+    return score;
+}
+
+function calculateWordScore(word) {
     let points = 0;
     if (word.length === 4) {
         points = 1;
