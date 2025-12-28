@@ -21,8 +21,19 @@ const submitBtn = document.getElementById('submit-btn');
 const scoreSpan = document.getElementById('score');
 const guessedWordsSummary = document.querySelector('#guessed-words-container summary');
 const guessedWordsList = document.getElementById('guessed-words-list');
+const copyStatsBtn = document.getElementById('copy-stats-btn');
 
-const wordStats = document.getElementById('word-stats');
+copyStatsBtn.addEventListener('click', () => {
+    const wordStats = createWordStats(guessedWords);
+    navigator.clipboard.writeText(wordStats)
+        .then(() => {
+            console.log('Stats copied to clipboard.');
+            console.log(wordStats);
+        })
+        .catch(err => {
+            console.error('Failed to copy stats: ', err);
+        });
+});
 
 letterKeys.forEach(key => {
     key.addEventListener('click', () => {
@@ -72,7 +83,6 @@ function submitWord() {
 
     guessedWords.push(word);
     updateGuessedWords();
-    updateWordStats();
     const points = calculateScore(word);
     score += points;
     scoreSpan.textContent = score;
@@ -111,7 +121,7 @@ function calculateScore(word) {
     return points;
 }
 
-function updateWordStats() {
+function createWordStats(guessedWords) {
     let stats = '';
     for (let i = 0; i < 26; i++) {
         const letter = String.fromCharCode(97 + i);
@@ -133,7 +143,5 @@ function updateWordStats() {
             stats += '\n';
         }
     }
-    wordStats.textContent = stats;
+    return stats;
 }
-
-updateWordStats();

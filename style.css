@@ -181,11 +181,3 @@ header h1 {
     color: white;
 }
 
-#word-stats {
-    background-color: var(--light-gray-color);
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    white-space: pre-wrap;
-}
-
