@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pangram</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Spelwijze</h1>
+        </header>
+        <main>
+            <div id="game-container">
+                <div id="guessed-words-container">
+                    <p>Woorden (0)</p>
+                    <div id="guessed-words"></div>
+                </div>
+                <div id="score-container">
+                    <p>Score: <span id="score">0</span></p>
+                </div>
+                <div class="game-area">
+                    <input type="text" id="word-input" placeholder="Klik of typ letters">
+                    <div class="letter-grid">
+                        <div class="row">
+                            <button class="letter-key">a</button>
+                            <button class="letter-key">e</button>
+                        </div>
+                        <div class="row">
+                            <button class="letter-key">g</button>
+                            <button class="letter-key center">r</button>
+                            <button class="letter-key">w</button>
+                        </div>
+                        <div class="row">
+                            <button class="letter-key">n</button>
+                            <button class="letter-key">z</button>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn" id="backspace-btn">
+                            <span class="material-icons">backspace</span>
+                        </button>
+                        <button class="action-btn" id="shuffle-btn">
+                            <span class="material-icons">shuffle</span>
+                        </button>
+                        <button class="action-btn primary" id="submit-btn">
+                            <span class="material-icons">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
