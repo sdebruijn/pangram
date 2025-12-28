@@ -55,7 +55,8 @@ submitBtn.addEventListener('click', () => {
 
     guessedWords.push(word);
     updateGuessedWords();
-    calculateScore(word);
+    score += calculateScore(word);
+    scoreSpan.textContent = score;
 });
 
 function updateGuessedWords() {
@@ -81,6 +82,5 @@ function calculateScore(word) {
         points += 7;
     }
 
-    score += points;
-    scoreSpan.textContent = score;
+    return points;
 }
