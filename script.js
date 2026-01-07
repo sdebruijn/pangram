@@ -1,6 +1,5 @@
-const letters = ["a", "e", "g", "n", "r", "w", "z"];
-const centerLetter = "w";
-const words = [
+const DEFAULT_LETTERS = ["w", "a", "e", "g", "n", "r", "z"];
+const DEFAULT_WORDS = [
     "aangewezen", "aanwennen", "argwaan", "geween", "geweer", "gewennen", "gewezen",
     "nawee", "nawegen", "regenweer", "renwagen", "waag", "waan", "waar", "waaraan",
     "waarna", "waarnaar", "waarzeggen", "waarzegger", "wagen", "wanen", "wang",
@@ -9,12 +8,25 @@ const words = [
     "wrang", "zeeweg", "zeewezen", "zwaan", "zwaar", "zwager", "zwanenzang",
     "zwanger", "zwangere", "zwanzen", "zweer", "zweren"
 ];
+const url = new URL(window.location.href);
+
+const lettersParam = url.searchParams.get('letters');
+const letters = isValidLetters(lettersParam) ? lettersParam : DEFAULT_LETTERS;
+const centerLetter = letters[0];
+let otherLetters = letters.slice(1);
+console.log(`Center letter: ${centerLetter}`);
+console.log(`Other letters: ${otherLetters}`);
+
+const wordsParam = url.searchParams.get('words');
+const words = wordsParam !== null ? decode(wordsParam): DEFAULT_WORDS;
+console.log('Words', words);
+    
 
 let guessedWords = [];
-let score = 0;
 
 const wordInput = document.getElementById('word-input');
 const letterKeys = document.querySelectorAll('.letter-key');
+const normalLetterKeys = document.querySelectorAll(".letter-key:not(.center-key)");
 const backspaceBtn = document.getElementById('backspace-btn');
 const shuffleBtn = document.getElementById('shuffle-btn');
 const submitBtn = document.getElementById('submit-btn');
@@ -113,7 +125,7 @@ function updateScore() {
 }
 
 function calculateScore() {
-    score = 0;
+    const score = 0;
     for (const word of guessedWords) {
         score += calculateWordScore(word);
     }
@@ -159,4 +171,57 @@ function createWordStats(guessedWords) {
         }
     }
     return stats;
+}
+
+function isValidLetters(letters) {
+    if (letters === null) {
+        return false;
+    }
+    let filteredString = letters.replace(/[^a-z]/g, '');
+    if (filteredString.length !== letters.length) {
+        console.log('letters contains non a-z characters');
+        return false;
+    }
+    if (letters.length !== 7) {
+        console.log('letters does not contain exactly 7 characters');
+        return false;
+    }
+    if (!hasUniqueChars(letters)) {
+        console.log('letters does not contain 7 unique characters');
+        return false;
+    }
+    return true;
+}
+
+function hasUniqueChars(string) {
+    const uniqueCharacters = [...new Set(string)];
+    return uniqueCharacters.length === string.length;
+}
+
+function shuffle(array) {
+    let currentIndex = array.length;
+    let randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+function encode(string) {
+    return btoa(string)
+        .replaceAll('+', '-')
+        .replaceAll('/', '_')
+        .replaceAll('=', '');
+}
+
+function decode(string) {
+    string = string.replaceAll('-', '+').replaceAll('_', '/');
+    const remainder = string.length % 3;
+    const paddingNeeded = remainder === 0 ? 0 : 3 - remainder;
+    const paddedString = string.padEnd(string.length + paddingNeeded, '=');
+    return atob(paddedString);
 }
