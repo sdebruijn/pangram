@@ -11,7 +11,7 @@ const DEFAULT_WORDS = [
 const url = new URL(window.location.href);
 
 const lettersParam = url.searchParams.get('letters');
-const letters = isValidLetters(lettersParam) ? lettersParam : DEFAULT_LETTERS;
+const letters = isValidLetters(lettersParam) ? lettersParam.split('') : DEFAULT_LETTERS;
 const centerLetter = letters[0];
 let otherLetters = letters.slice(1);
 console.log(`Center letter: ${centerLetter}`);
@@ -37,7 +37,12 @@ const guessedWordsList = document.getElementById('guessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
 
 centerLetterKey.innerText = centerLetter;
-normalLetterKeys.forEach((key,idx) => key.innerText = otherLetters[idx]);
+shuffleLetters();
+
+function shuffleLetters() {
+    shuffle(otherLetters);
+    normalLetterKeys.forEach((key,idx) => key.innerText = otherLetters[idx]);
+}
 
 copyStatsBtn.addEventListener('click', () => {
     const wordStats = createWordStats(guessedWords);
@@ -57,17 +62,9 @@ letterKeys.forEach(key => {
     });
 });
 
-backspaceBtn.addEventListener('click', () => {
-    wordInput.value = wordInput.value.slice(0, -1);
-});
-
-shuffleBtn.addEventListener('click', () => {
-    console.log('Shuffle letters');
-});
-
-submitBtn.addEventListener('click', () => {
-    submitWord();
-});
+backspaceBtn.addEventListener('click', () => wordInput.value = wordInput.value.slice(0, -1));
+shuffleBtn.addEventListener('click', () => shuffleLetters());
+submitBtn.addEventListener('click', () => submitWord());
 
 wordInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -211,8 +208,6 @@ function shuffle(array) {
         currentIndex--;
         [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
-
-    return array;
 }
 
 function encode(string) {
