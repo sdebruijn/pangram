@@ -27,6 +27,7 @@ let guessedWords = [];
 const wordInput = document.getElementById('word-input');
 const letterKeys = document.querySelectorAll('.letter-key');
 const normalLetterKeys = document.querySelectorAll(".letter-key:not(.center-key)");
+const centerLetterKey = document.getElementById("center-key");
 const backspaceBtn = document.getElementById('backspace-btn');
 const shuffleBtn = document.getElementById('shuffle-btn');
 const submitBtn = document.getElementById('submit-btn');
@@ -34,6 +35,9 @@ const scoreSpan = document.getElementById('score');
 const guessedWordsSummary = document.querySelector('#guessed-words-container summary');
 const guessedWordsList = document.getElementById('guessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
+
+centerLetterKey.innerText = centerLetter;
+normalLetterKeys.forEach((key,idx) => key.innerText = otherLetters[idx]);
 
 copyStatsBtn.addEventListener('click', () => {
     const wordStats = createWordStats(guessedWords);
@@ -125,7 +129,7 @@ function updateScore() {
 }
 
 function calculateScore() {
-    const score = 0;
+    let score = 0;
     for (const word of guessedWords) {
         score += calculateWordScore(word);
     }
