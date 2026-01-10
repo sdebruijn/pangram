@@ -14,13 +14,9 @@ const lettersParam = url.searchParams.get('letters');
 const letters = isValidLetters(lettersParam) ? lettersParam.split('') : DEFAULT_LETTERS;
 const centerLetter = letters[0];
 let otherLetters = letters.slice(1);
-console.log(`Center letter: ${centerLetter}`);
-console.log(`Other letters: ${otherLetters}`);
 
 const wordsParam = url.searchParams.get('words');
 const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORDS;
-console.log('Words', words);
-
 
 const localStorageKey = `game-${letters.join('')}`;
 const storedWords = localStorage.getItem(localStorageKey);
@@ -77,27 +73,26 @@ wordInput.addEventListener('keydown', (e) => {
 
 function submitWord() {
     const word = wordInput.value.toLowerCase();
-    console.log(`Submitting word: ${word}`);
     wordInput.value = '';
 
     if (word.length < 4) {
-        console.log('Word too short.');
+        console.log(`${word} - too short.`);
         return;
     }
     if (!word.includes(centerLetter)) {
-        console.log('Word does not contain center letter.');
+        console.log(`${word} - must contain ${centerLetter}.`);
         return;
     }
     if (!words.includes(word)) {
-        console.log('Word not in list.');
+        console.log(`${word} - not in list.`);
         return;
     }
     if (guessedWords.includes(word)) {
-        console.log('Word already guessed.');
+        console.log(`${word} - already found.`);
         return;
     }
 
-    console.log('Word is valid.');
+    console.log(`${word} - correct.`);
     guessedWords.push(word);
     updateGameState();
 }
@@ -130,7 +125,6 @@ function updateGuessedWords() {
 function updateScore() {
     const score = calculateScore();
     scoreSpan.textContent = score;
-    console.log(`Score updated: ${score} points.`);
 }
 
 function calculateScore() {
