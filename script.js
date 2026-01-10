@@ -107,7 +107,7 @@ function updateGameState() {
 function updateGuessedWords() {
     // Update summary
     const recentWords = guessedWords.slice(-5).reverse();
-    guessedWordsSummary.textContent = `Woorden (${guessedWords.length}) ${recentWords.join(', ')}`;
+    guessedWordsSummary.textContent = `Woorden (${guessedWords.length}/${words.length})    ${recentWords.join(', ')}`;
 
     // Update details list
     guessedWordsList.innerHTML = '';
