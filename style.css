@@ -49,7 +49,6 @@ header h1 {
 
 #guessed-words-container {
     width: 100%;
-    margin-bottom: 1rem;
     border: 1px solid var(--dark-gray-color);
     border-radius: 8px;
     padding: 0.5rem 1rem;
@@ -84,7 +83,6 @@ header h1 {
 
 #score-container {
     width: 100%;
-    margin-bottom: 1rem;
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
