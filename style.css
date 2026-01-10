@@ -57,14 +57,16 @@ header h1 {
 }
 
 #guessed-words-container summary {
+    display: flex;
+    gap: 0.5rem;
     cursor: pointer;
     list-style: none; /* Remove default marker */
 }
 
 #guessed-words-container summary:after {
+    margin-left: auto;
     content: 'expand_more';
     font-family: 'Material Icons';
-    float: right;
     transition: transform 0.3s ease;
 }
 
@@ -79,7 +81,6 @@ header h1 {
     column-count: 2;
     column-gap: 1rem;
 }
-
 
 #score-container {
     width: 100%;
@@ -107,15 +108,17 @@ header h1 {
 }
 
 .letter-grid {
+    --key-gap: 0.8rem;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-}
+    gap: var(--key-gap);
 
-.letter-grid .row {
-    display: flex;
-    gap: 0.5rem;
+    .row {
+        display: flex;
+        gap: var(--key-gap);
+    }
 }
 
 .letter-key {

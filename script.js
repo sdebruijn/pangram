@@ -30,7 +30,8 @@ const backspaceBtn = document.getElementById('backspace-btn');
 const shuffleBtn = document.getElementById('shuffle-btn');
 const submitBtn = document.getElementById('submit-btn');
 const scoreSpan = document.getElementById('score');
-const guessedWordsSummary = document.querySelector('#guessed-words-container summary');
+const guessedWordsCount = document.getElementById('guessed-words-count');
+const recentlyGuessedWordsCount = document.getElementById('recently-guessed-words-list');
 const guessedWordsList = document.getElementById('guessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
 
@@ -108,11 +109,10 @@ function saveGuessedWords() {
 }
 
 function updateGuessedWords() {
-    // Update summary
-    const recentWords = guessedWords.slice(-5).reverse();
-    guessedWordsSummary.textContent = `Woorden (${guessedWords.length}/${words.length})    ${recentWords.join(', ')}`;
+    const recentWords = guessedWords.slice(-5).reverse() ?? [];
+    guessedWordsCount.textContent = `Woorden (${guessedWords.length}/${words.length})`;
+    recentlyGuessedWordsCount.textContent = recentWords.join(', ');
 
-    // Update details list
     guessedWordsList.innerHTML = '';
     const sortedWords = [...guessedWords].sort();
     sortedWords.forEach(word => {
