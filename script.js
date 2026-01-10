@@ -20,7 +20,7 @@ console.log(`Other letters: ${otherLetters}`);
 const wordsParam = url.searchParams.get('words');
 const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORDS;
 console.log('Words', words);
-    
+
 
 let guessedWords = [];
 
@@ -173,41 +173,4 @@ function createWordStats(guessedWords) {
     }
     return stats;
 }
-
-function isValidLetters(letters) {
-    if (letters === null) {
-        return false;
-    }
-    let filteredString = letters.replace(/[^a-z]/g, '');
-    if (filteredString.length !== letters.length) {
-        console.log('letters contains non a-z characters');
-        return false;
-    }
-    if (letters.length !== 7) {
-        console.log('letters does not contain exactly 7 characters');
-        return false;
-    }
-    if (!hasUniqueChars(letters)) {
-        console.log('letters does not contain 7 unique characters');
-        return false;
-    }
-    return true;
-}
-
-function hasUniqueChars(string) {
-    const uniqueCharacters = [...new Set(string)];
-    return uniqueCharacters.length === string.length;
-}
-
-function shuffle(array) {
-    let currentIndex = array.length;
-    let randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-    }
-}
-
 
