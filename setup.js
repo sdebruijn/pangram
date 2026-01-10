@@ -31,3 +31,23 @@ setupForm.addEventListener('formdata', (event) => {
 });
 
 
+async function getPuzzle() {
+    const url ="https://api.42puzzles.com/player/dpg/ox1MyqZaR2yMnteGqHdf?userId=6fee8bb0-3163-40f6-ab97-d2fafaf77611&sessionId=1c686796-1a11-42e5-bac0-6df17c66e5fc&playerId=dpg-ox1MyqZaR2yMnteGqHdf";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+
+        const letters = result.puzzle.originId.toLowerCase();
+
+        const words = result.puzzle.words.map((obj) => obj.p);
+        console.log(letters, words);
+        const wordList = words.join(',');
+
+        return { letters, words: wordList} ;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
