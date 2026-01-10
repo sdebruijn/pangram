@@ -72,10 +72,6 @@ header h1 {
     list-style: none; /* Remove default marker */
 }
 
-#guessed-words-container summary::-webkit-details-marker {
-    display: none; /* Remove default marker in Safari */
-}
-
 #guessed-words-container summary:after {
     content: 'expand_more';
     font-family: 'Material Icons';
@@ -90,6 +86,7 @@ header h1 {
 #guessed-words-list {
     margin-top: 1rem;
     padding-left: 0;
+    list-style: none; /* Remove default marker */
     column-count: 2;
     column-gap: 1rem;
 }
