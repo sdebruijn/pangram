@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupForm.addEventListener('formdata', (event) => {
         const formData = event.formData;
-        const words = formData.get('words');
+        const words = formData.get('words').replaceAll(' ','');
         const encodedWords = encode(words);
         formData.set('words', encodedWords);
         // The 'letters' field doesn't need to be modified here because its value
