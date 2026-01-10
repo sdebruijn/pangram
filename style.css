@@ -110,8 +110,9 @@ header h1 {
 }
 
 .letter-key {
-    width: 3.75rem;
-    height: 3.75rem;
+    touch-action: manipulation;
+    width: 4rem;
+    height: 4rem;
     border-radius: 0.75rem;
     border: none;
     background-color: var(--light-gray-color);
