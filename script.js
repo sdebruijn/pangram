@@ -153,25 +153,22 @@ function calculateWordScore(word) {
 
 function createWordStats(guessedWords) {
     let stats = '';
-    for (let i = 0; i < 26; i++) {
-        const letter = String.fromCharCode(97 + i);
-        const wordsStartingWithLetter = guessedWords.filter(word => word.startsWith(letter));
-        if (wordsStartingWithLetter.length > 0) {
-            stats += letter.toUpperCase();
-            wordsStartingWithLetter.forEach((word, index) => {
-                if (index !== 0 && (index) % 4 === 0) {
-                    stats += '.';
-                }
-                if (word.length === 10) {
-                    stats += 'X';
-                } else if (word.length > 10) {
-                    stats += ` ${word.length} `;
-                } else {
-                    stats += word.length;
-                }
-            });
-            stats += '\n';
-        }
+    const byStartLetter = Object.groupBy(guessedWords.sort(), (word) => word[0]);
+    for (const [startLetter, words] of Object.entries(byStartLetter)) {
+        stats += startLetter.toUpperCase();
+        words.forEach((word, index) => {
+            if (index !== 0 && (index) % 4 === 0) {
+                stats += '.';
+            }
+            if (word.length === 10) {
+                stats += 'X';
+            } else if (word.length > 10) {
+                stats += `${word.length}`;
+            } else {
+                stats += word.length;
+            }
+        });
+        stats += '\n';
     }
     return stats;
 }
