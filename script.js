@@ -22,7 +22,9 @@ const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORD
 console.log('Words', words);
 
 
-let guessedWords = [];
+const localStorageKey = `game-${letters.join('')}`;
+const storedWords = localStorage.getItem(localStorageKey);
+let guessedWords = storedWords ? storedWords.split(',') : [];
 
 const wordInput = document.getElementById('word-input');
 const letterKeys = document.querySelectorAll('.letter-key');
@@ -38,6 +40,7 @@ const copyStatsBtn = document.getElementById('copy-stats-btn');
 
 centerLetterKey.innerText = centerLetter;
 shuffleLetters();
+updateGameState();
 
 function shuffleLetters() {
     shuffle(otherLetters);
@@ -102,6 +105,11 @@ function submitWord() {
 function updateGameState() {
     updateGuessedWords();
     updateScore();
+    saveGuessedWords();
+}
+
+function saveGuessedWords() {
+    localStorage.setItem(localStorageKey, guessedWords.join(','));
 }
 
 function updateGuessedWords() {
