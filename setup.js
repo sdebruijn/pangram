@@ -1,6 +1,20 @@
 const setupForm = document.getElementById('setup-form');
 const lettersInput = document.getElementById('letters-input');
 const wordsInput = document.getElementById('words-input');
+const dailyPuzzleBtn = document.getElementById('daily-puzzle-btn');
+
+dailyPuzzleBtn.addEventListener('click', async () => {
+    const puzzle = await getPuzzle();
+    if (puzzle) {
+        const { letters, words } = puzzle;
+        const encodedWords = encode(words);
+
+        const url = new URL('index.html', window.location.href);
+        url.searchParams.set('letters', letters);
+        url.searchParams.set('words', encodedWords);
+        window.location.href = url.href;
+    }
+});
 
 setupForm.addEventListener('submit', (event) => {
     const letters = lettersInput.value.toLowerCase();
