@@ -210,17 +210,4 @@ function shuffle(array) {
     }
 }
 
-function encode(string) {
-    return btoa(string)
-        .replaceAll('+', '-')
-        .replaceAll('/', '_')
-        .replaceAll('=', '');
-}
 
-function decode(string) {
-    string = string.replaceAll('-', '+').replaceAll('_', '/');
-    const remainder = string.length % 3;
-    const paddingNeeded = remainder === 0 ? 0 : 3 - remainder;
-    const paddedString = string.padEnd(string.length + paddingNeeded, '=');
-    return atob(paddedString);
-}

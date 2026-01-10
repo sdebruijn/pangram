@@ -9,17 +9,6 @@
     --font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-:root {
-    --background-color: #ffffff;
-    --text-color: #333333;
-    --primary-color: #0099ff;
-    --light-gray-color: #f0f0f0;
-    --medium-gray-color: #e0e0e0;
-    --dark-gray-color: #cccccc;
-    --dark-icon-color: #555555;
-    --font-family: 'Helvetica Neue', Arial, sans-serif;
-}
-
 body {
     margin: 0;
     font-family: var(--font-family);
@@ -177,3 +166,63 @@ header h1 {
     color: white;
 }
 
+/* Styles for setup page */
+#setup-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 1px solid var(--dark-gray-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+#letters-input {
+    text-transform: uppercase;
+    letter-spacing: 0.2rem
+}
+
+#letters-input::placeholder {
+    text-transform: none;
+}
+
+#words-input {
+    resize: vertical;
+    min-height: 150px;
+    text-align: left;
+}
+
+.field-description {
+    font-size: 0.9rem;
+    color: var(--dark-icon-color);
+    margin: 0;
+    text-align: center;
+}
+
+.submit-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+}
