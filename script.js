@@ -18,7 +18,7 @@ console.log(`Center letter: ${centerLetter}`);
 console.log(`Other letters: ${otherLetters}`);
 
 const wordsParam = url.searchParams.get('words');
-const words = wordsParam !== null ? decode(wordsParam): DEFAULT_WORDS;
+const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORDS;
 console.log('Words', words);
     
 
