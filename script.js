@@ -152,9 +152,12 @@ function calculateWordScore(word) {
 }
 
 function createWordStats(guessedWords) {
-    let stats = '';
+    const score = calculateScore();
+    const wordCount = guessedWords.length;
+    let stats = `${wordCount}/${score}\n`;
     const byStartLetter = Object.groupBy(guessedWords.sort(), (word) => word[0]);
     for (const [startLetter, words] of Object.entries(byStartLetter)) {
+        stats += '\n';
         stats += startLetter.toUpperCase();
         words.forEach((word, index) => {
             if (index !== 0 && (index) % 4 === 0) {
@@ -168,7 +171,6 @@ function createWordStats(guessedWords) {
                 stats += word.length;
             }
         });
-        stats += '\n';
     }
     return stats;
 }
