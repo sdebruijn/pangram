@@ -110,7 +110,7 @@ function saveGuessedWords() {
 
 function updateGuessedWords() {
     const recentWords = guessedWords.slice(-5).reverse() ?? [];
-    guessedWordsCount.textContent = `Woorden (${guessedWords.length}/${words.length})`;
+    guessedWordsCount.textContent = `(${guessedWords.length}/${words.length})`;
     recentlyGuessedWordsCount.textContent = recentWords.join(', ');
 
     guessedWordsList.innerHTML = '';
