@@ -30,6 +30,7 @@ const backspaceBtn = document.getElementById('backspace-btn');
 const shuffleBtn = document.getElementById('shuffle-btn');
 const submitBtn = document.getElementById('submit-btn');
 const scoreSpan = document.getElementById('score');
+const maxScoreSpan = document.getElementById('max-score');
 const guessedWordsCount = document.getElementById('guessed-words-count');
 const recentlyGuessedWordsCount = document.getElementById('recently-guessed-words-list');
 const guessedWordsList = document.getElementById('guessed-words-list');
@@ -37,6 +38,7 @@ const copyStatsBtn = document.getElementById('copy-stats-btn');
 
 centerLetterKey.innerText = centerLetter;
 shuffleLetters();
+maxScoreSpan.textContent = calculateScore(words);
 updateGameState();
 
 function shuffleLetters() {
@@ -135,13 +137,17 @@ function updateGuessedWords() {
 }
 
 function updateScore() {
-    const score = calculateScore();
+    const score = calculateScore(guessedWords);
     scoreSpan.textContent = score;
 }
 
-function calculateScore() {
+function calculateMaxScore() {
+    return calculateScore(words);
+}
+
+function calculateScore(words) {
     let score = 0;
-    for (const word of guessedWords) {
+    for (const word of words) {
         score += calculateWordScore(word);
     }
     return score;
@@ -164,7 +170,7 @@ function calculateWordScore(word) {
 }
 
 function createWordStats(guessedWords) {
-    const score = calculateScore();
+    const score = calculateScore(guessedWords);
     const wordCount = guessedWords.length;
     let stats = `${wordCount}/${score}\n`;
     const byStartLetter = Object.groupBy(guessedWords.sort(), (word) => word[0]);
