@@ -74,28 +74,40 @@ wordInput.addEventListener('keydown', (e) => {
 
 function submitWord() {
     const word = wordInput.value.toLowerCase();
-    wordInput.value = '';
+    const errorMessage = getErrorMessage(word);
 
-    if (word.length < 4) {
-        console.log(`${word} - too short.`);
-        return;
-    }
-    if (!word.includes(centerLetter)) {
-        console.log(`${word} - must contain ${centerLetter}.`);
-        return;
-    }
-    if (!words.includes(word)) {
-        console.log(`${word} - not in list.`);
-        return;
-    }
-    if (guessedWords.includes(word)) {
-        console.log(`${word} - already found.`);
+    setTimeout(() => {
+        wordInput.value = ''; 
+        wordInput.classList.remove('correct-word');
+        wordInput.classList.remove('incorrect-word');
+    }, 1000);
+
+    if (errorMessage != null) {
+        console.log(errorMessage);
+        wordInput.classList.add('incorrect-word');
         return;
     }
 
     console.log(`${word} - correct.`);
+    wordInput.classList.add('correct-word');
     guessedWords.push(word);
     updateGameState();
+}
+
+function getErrorMessage(word) {
+    if (word.length < 4) {
+        return `${word} - too short.`;
+    }
+    if (!word.includes(centerLetter)) {
+        return `${word} - must contain ${centerLetter}.`;
+    }
+    if (!words.includes(word)) {
+        return `${word} - not in list.`;
+    }
+    if (guessedWords.includes(word)) {
+        return `${word} - already found.`;
+    }
+    return null;
 }
 
 function updateGameState() {

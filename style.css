@@ -207,6 +207,18 @@ ul#guessed-words-list {
     text-align: left;
 }
 
+#word-input {
+    font-weight: bold;
+}
+
+.correct-word {
+    color: #22cc33;
+}
+
+.incorrect-word {
+    color: red;
+}
+
 .field-description {
     font-size: 0.9rem;
     color: var(--dark-icon-color);
