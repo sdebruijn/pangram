@@ -11,7 +11,7 @@
 
 body {
     margin: 0;
-    font-family: var(--font-family);
+    font-family: var(--font-family), sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     display: flex;
@@ -79,7 +79,7 @@ ul#guessed-words-list {
     list-style: none; /* Remove default marker */
     column-count: 2;
     column-gap: 1rem;
-    
+
     li {
         padding: 0.4rem 0.25rem 0.0rem 0.25rem;
         border-bottom: 1px solid var(--medium-gray-color);
@@ -138,6 +138,7 @@ ul#guessed-words-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+    touch-action: manipulation;
 }
 
 .action-btn {
