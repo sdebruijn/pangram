@@ -8,6 +8,18 @@ const DEFAULT_WORDS = [
     "wrang", "zeeweg", "zeewezen", "zwaan", "zwaar", "zwager", "zwanenzang",
     "zwanger", "zwangere", "zwanzen", "zweer", "zweren"
 ];
+const levels = [
+    { name: "Opwarmronde", threshold: 0},
+    { name: "Aardig begin", threshold: 0.02},
+    { name: "Goed bezig", threshold: 0.05},
+    { name: "Ga zo door", threshold: 0.08},
+    { name: "Topper", threshold: 0.15},
+    { name: "Indrukwekkend", threshold: 0.25},
+    { name: "Meesterlijk", threshold: 0.4},
+    { name: "Briljant", threshold: 0.5},
+    { name: "Genie", threshold: 0.7},
+    { name: "Maximaal", threshold: 1}
+];
 const url = new URL(window.location.href);
 
 const lettersParam = url.searchParams.get('letters');
@@ -31,6 +43,7 @@ const shuffleBtn = document.getElementById('shuffle-btn');
 const submitBtn = document.getElementById('submit-btn');
 const scoreSpan = document.getElementById('score');
 const maxScoreSpan = document.getElementById('max-score');
+const levelSpan = document.getElementById('level');
 const guessedWordsCount = document.getElementById('guessed-words-count');
 const recentlyGuessedWordsCount = document.getElementById('recently-guessed-words-list');
 const guessedWordsList = document.getElementById('guessed-words-list');
@@ -38,7 +51,9 @@ const copyStatsBtn = document.getElementById('copy-stats-btn');
 
 centerLetterKey.innerText = centerLetter;
 shuffleLetters();
-maxScoreSpan.textContent = calculateScore(words);
+const maxScore = calculateScore(words);
+maxScoreSpan.textContent = maxScore;
+calculateLevels(maxScore);
 updateGameState();
 
 function shuffleLetters() {
@@ -79,7 +94,7 @@ function submitWord() {
     const errorMessage = getErrorMessage(word);
 
     setTimeout(() => {
-        wordInput.value = ''; 
+        wordInput.value = '';
         wordInput.classList.remove('correct-word');
         wordInput.classList.remove('incorrect-word');
     }, 1000);
@@ -137,12 +152,8 @@ function updateGuessedWords() {
 }
 
 function updateScore() {
-    const score = calculateScore(guessedWords);
-    scoreSpan.textContent = score;
-}
-
-function calculateMaxScore() {
-    return calculateScore(words);
+    scoreSpan.textContent = calculateScore(guessedWords);
+    levelSpan.textContent = levels.findLast(level => calculateScore(guessedWords) >= level.requiredScore).name;
 }
 
 function calculateScore(words) {
@@ -193,3 +204,8 @@ function createWordStats(guessedWords) {
     return stats;
 }
 
+function calculateLevels(maxScore) {
+    for (const level of levels) {
+        level.requiredScore = Math.ceil(level.threshold * maxScore);
+    }
+}
