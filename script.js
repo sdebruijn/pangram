@@ -75,6 +75,7 @@ copyStatsBtn.addEventListener('click', () => {
 
 letterKeys.forEach(key => {
     key.addEventListener('click', () => {
+        interruptWordResultAnimation();
         wordInput.value += key.textContent;
     });
 });
@@ -84,22 +85,41 @@ shuffleBtn.addEventListener('click', () => shuffleLetters());
 submitBtn.addEventListener('click', () => submitWord());
 
 wordInput.addEventListener('keydown', (e) => {
+    interruptWordResultAnimation();
     if (e.key === 'Enter') {
         submitWord();
     }
 });
 
+let wordResultAnimationTimeout = null;
+let isSubmitted = false;
+
+function interruptWordResultAnimation() {
+    if (isSubmitted) {
+        clearTimeout(wordResultAnimationTimeout);
+        resetInput();
+    }
+}
+
+function resetInput() {
+    wordInput.value = '';
+    wordInput.classList.remove('correct-word', 'incorrect-word', 'already-guessed-word');
+    wordResultAnimationTimeout = null;
+    isSubmitted = false;
+}
+
 function submitWord() {
+    if (!wordInput.value) return;
     const word = wordInput.value.toLowerCase();
     const message = getMessage(word);
 
-    setTimeout(() => {
-        wordInput.value = '';
-        wordInput.classList.remove('correct-word', 'incorrect-word', 'already-guessed-word');
+    wordResultAnimationTimeout = setTimeout(() => {
+        resetInput();
     }, 1000);
 
     console.log(message.message(word));
     wordInput.classList.add(message.appearance);
+    isSubmitted = true;
     if (message === messages.correct) {
         guessedWords.push(word);
         updateGameState();
