@@ -91,40 +91,58 @@ wordInput.addEventListener('keydown', (e) => {
 
 function submitWord() {
     const word = wordInput.value.toLowerCase();
-    const errorMessage = getErrorMessage(word);
+    const message = getMessage(word);
 
     setTimeout(() => {
         wordInput.value = '';
-        wordInput.classList.remove('correct-word');
-        wordInput.classList.remove('incorrect-word');
+        wordInput.classList.remove('correct-word', 'incorrect-word', 'already-guessed-word');
     }, 1000);
 
-    if (errorMessage != null) {
-        console.log(errorMessage);
-        wordInput.classList.add('incorrect-word');
-        return;
+    console.log(message.message(word));
+    wordInput.classList.add(message.appearance);
+    if (message === messages.correct) {
+        guessedWords.push(word);
+        updateGameState();
     }
-
-    console.log(`${word} - correct.`);
-    wordInput.classList.add('correct-word');
-    guessedWords.push(word);
-    updateGameState();
 }
 
-function getErrorMessage(word) {
+const messages = {
+    tooShort: {
+        message: (word) => `${word} - too short.`,
+        appearance: 'incorrect-word',
+    },
+    missingCenterLetter: {
+        message: (word) => `${word} - must contain ${centerLetter}.`,
+        appearance: 'incorrect-word',
+    },
+    notInList: {
+        message: (word) => `${word} - not in list.`,
+        appearance: 'incorrect-word',
+    },
+    alreadyFound: {
+        message: (word) => `${word} - already found.`,
+        appearance: 'already-guessed-word',
+    },
+    correct: {
+        message: (word) => `${word} - correct.`,
+        appearance: 'correct-word',
+    },
+};
+
+function getMessage(word) {
     if (word.length < 4) {
-        return `${word} - too short.`;
+        return messages.tooShort;
     }
     if (!word.includes(centerLetter)) {
-        return `${word} - must contain ${centerLetter}.`;
+        return messages.missingCenterLetter;
     }
     if (!words.includes(word)) {
-        return `${word} - not in list.`;
+        return messages.notInList;
     }
     if (guessedWords.includes(word)) {
-        return `${word} - already found.`;
+        return messages.alreadyFound;
     }
-    return null;
+    return messages.correct;
 }
 
 function updateGameState() {

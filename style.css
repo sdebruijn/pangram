@@ -215,6 +215,9 @@ ul#guessed-words-list {
 .correct-word {
     color: #22cc33;
 }
+.already-guessed-word {
+    color: #fac327;
+}
 
 .incorrect-word {
     color: red;
