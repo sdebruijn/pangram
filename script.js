@@ -48,6 +48,14 @@ const guessedWordsCount = document.getElementById('guessed-words-count');
 const recentlyGuessedWordsCount = document.getElementById('recently-guessed-words-list');
 const guessedWordsList = document.getElementById('guessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
+const statsOutput = document.getElementById('stats-output');
+
+const isClipboardDisabled = !navigator.clipboard?.writeText;
+if (isClipboardDisabled) {
+    // No support for clipboard API, hide the copy stats button
+    copyStatsBtn.style.display = 'none';
+    statsOutput.style.display = 'block';
+}
 
 centerLetterKey.innerText = centerLetter;
 shuffleLetters();
@@ -169,6 +177,10 @@ function updateGameState() {
     updateGuessedWords();
     updateScore();
     saveGuessedWords();
+
+    if (isClipboardDisabled) {
+        statsOutput.textContent = createWordStats(guessedWords);
+    }
 }
 
 function saveGuessedWords() {

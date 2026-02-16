@@ -241,3 +241,12 @@ ul#guessed-words-list {
     cursor: pointer;
     text-transform: uppercase;
 }
+
+#stats-output {
+    display: none;
+    border: 2px solid var(--text-color);
+    padding: 0.5rem;
+    width: 50%;
+    border-radius: 0.5rem;
+    user-select: all;
+}
