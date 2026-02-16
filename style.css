@@ -83,6 +83,10 @@ ul#guessed-words-list {
     li {
         padding: 0.4rem 0.25rem 0.0rem 0.25rem;
         border-bottom: 1px solid var(--medium-gray-color);
+
+        &.pangram {
+            color: var(--primary-color);
+        }
     }
 }
 

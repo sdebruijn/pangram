@@ -196,9 +196,14 @@ function updateGuessedWords() {
     const sortedWords = [...guessedWords].sort();
     sortedWords.forEach(word => {
         const li = document.createElement('li');
+        if (isPangram(word)) li.classList.add('pangram')
         li.textContent = word;
         guessedWordsList.appendChild(li);
     });
+}
+
+function isPangram(word) {
+    return new Set(word).size === letters.length;
 }
 
 function updateScore() {
