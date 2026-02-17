@@ -61,6 +61,7 @@
 
 .icon {
     font-family: 'Material Icons';
+    color: var(color-action);
 }
 
 .sr-only {
@@ -328,6 +329,16 @@ ul#guessed-words-list {
 }
 
 .select {
+    &.select-icon {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        > div {
+            flex: 1;
+        }
+    }
+
     > div {
         display: grid;
         grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -354,7 +365,7 @@ ul#guessed-words-list {
         outline-color: var(--color-primary);
     }
 
-    .icon {
+    .unfold-more {
         pointer-events: none;
         grid-column-start: 1;
         grid-row-start: 1;
@@ -371,8 +382,14 @@ ul#guessed-words-list {
             line-height: 1.5rem;
         }
 
-        .icon {
+        .unfold-more {
             font-size: 1rem;
         }
     }
+}
+
+.settings {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 }
