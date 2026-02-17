@@ -1,5 +1,5 @@
 function encode(string) {
-    return btoa(string)
+    return btoa(encodeURIComponent(string))
         .replaceAll('+', '-')
         .replaceAll('/', '_')
         .replaceAll('=', '');
@@ -16,14 +16,14 @@ function decode(string) {
     if (padding > 0) {
         string += '='.repeat(4 - padding);
     }
-    return atob(string);
+    return decodeURIComponent(atob(string));
 }
 
 function isValidLetters(letters) {
     if (letters === null) {
         return false;
     }
-    if (/[^a-z]/.test(letters)) {
+    if (/[^a-zĳ]/.test(letters)) {
         console.log('letters contains non-alpha characters');
         return false;
     }

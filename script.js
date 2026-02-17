@@ -118,7 +118,7 @@ function resetInput() {
 
 function submitWord() {
     if (!wordInput.value) return;
-    const word = wordInput.value.toLowerCase();
+    const word = wordInput.value.toLowerCase().replace('ij', 'ĳ');
     const message = getMessage(word);
 
     wordResultAnimationTimeout = setTimeout(() => {
