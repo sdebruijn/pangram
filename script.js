@@ -268,3 +268,28 @@ function calculateLevels(maxScore) {
         level.requiredScore = Math.ceil(level.threshold * maxScore);
     }
 }
+
+const COLOR_SCHEMES = ['', 'light', 'dark'];
+
+const colorSchemeEl = document.getElementById('color-scheme');
+
+const userColorScheme = localStorage.getItem('color-scheme');
+
+if (COLOR_SCHEMES.includes(userColorScheme)) {
+    colorSchemeEl.value = userColorScheme;
+}
+
+colorSchemeEl.addEventListener('change', (e) => {
+    const userColorScheme = localStorage.getItem('color-scheme');
+
+    const value = e.target.value;
+    localStorage.setItem('color-scheme', value);
+
+    if (document.documentElement.classList.contains(userColorScheme)) {
+        document.documentElement.classList.remove(userColorScheme);
+    }
+
+    if (COLOR_SCHEMES.includes(value)) {
+        if (value !== '') document.documentElement.classList.add(value);
+    }
+})

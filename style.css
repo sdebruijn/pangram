@@ -8,6 +8,7 @@
     --color-primary: oklch(66.906% 0.18376 248.826);
     --color-secondary: oklch(95.514% 0.00011 271.152);
     --color-control: oklch(84.522% 0.0001 271.152);
+    --background-color-control: var(--white);
     --color-action: oklch(44.953% 0.00005 271.152);
 
     --medium-gray-color: #e0e0e0;
@@ -18,13 +19,56 @@
     color-scheme: light dark;
 }
 
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: var(--white);
+        --color-secondary: oklch(95.514% 0.00011 271.152);
+        --text-color: oklch(32.109% 0.00004 271.152);
+        --color-action: oklch(44.953% 0.00005 271.152);
+        --background-color-control: var(--white);
+    }
+}
+
+.light body {
+    --background-color: var(--white);
+    --color-secondary: oklch(95.514% 0.00011 271.152);
+    --text-color: oklch(32.109% 0.00004 271.152);
+    --color-action: oklch(44.953% 0.00005 271.152);
+    --background-color-control: var(--white);
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --background-color: var(--blackish);
         --color-secondary: oklch(34.07% 0.00004 271.152);
         --text-color: var(--white);
         --color-action: var(--white);
+        --background-color-control: var(--blackish);
     }
+}
+
+.dark body {
+    --background-color: var(--blackish);
+    --color-secondary: oklch(34.07% 0.00004 271.152);
+    --text-color: var(--white);
+    --color-action: var(--white);
+    --background-color-control: var(--blackish);
+}
+
+.icon {
+    font-family: 'Material Icons';
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 body {
@@ -276,4 +320,56 @@ ul#guessed-words-list {
     width: 50%;
     border-radius: 0.5rem;
     user-select: all;
+}
+
+.select {
+    > div {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    select {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        width: 100%;
+        appearance: none;
+        border-radius: 0.375rem;
+        background-color: var(--background-color-control);
+        padding-top: 0.375rem;
+        padding-bottom: 0.375rem;
+        padding-left: 0.75rem;
+        padding-right: 2rem;
+        font-size: 1rem;
+        color: var(--text-color);
+        outline: 1px solid var(--color-control);
+        outline-offset: -1px;
+    }
+
+    select:focus-visible {
+        outline-width: 2px;
+        outline-offset: -2px;
+        outline-color: var(--color-primary);
+    }
+
+    .icon {
+        pointer-events: none;
+        grid-column-start: 1;
+        grid-row-start: 1;
+        margin-right: 0.5rem;
+        font-size: 1.25rem;
+        align-self: center;
+        justify-self: end;
+        color: var(--text-color);
+    }
+
+    @media (min-width: 640px) {
+        select {
+            font-size: 0.875rem;
+            line-height: 1.5rem;
+        }
+
+        .icon {
+            font-size: 1rem;
+        }
+    }
 }

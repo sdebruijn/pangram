@@ -7,12 +7,45 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        const colorScheme = localStorage.getItem('color-scheme');
+
+        let className = '';
+        switch (colorScheme) {
+            case 'dark':
+                className = 'dark'
+                break;
+            case 'light':
+                className = 'light'
+                break;
+        }
+
+        if (className) document.documentElement.classList.add(className);
+    </script>
 </head>
 <body>
     <div class="app-container">
         <header>
             <h1>Spelwijze</h1>
         </header>
+        <div>
+            <div class="select">
+                <label 
+                    htmlFor="color-scheme" 
+                    class="sr-only"
+                >
+                    Color scheme
+                </label>
+                <div>
+                    <select id="color-scheme">
+                        <option value="">System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                    <span class="icon">unfold_more</span>
+                </div>
+            </div>
+        </div>
         <main>
             <div id="game-container">
                 <details id="guessed-words-container">
