@@ -96,6 +96,10 @@ p {
     margin-block-end: 1.25rem;
 }
 
+input {
+    color: var(--text-color);
+}
+
 .app-container {
     width: 100%;
     max-width: 400px;
