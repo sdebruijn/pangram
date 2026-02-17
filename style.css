@@ -1,5 +1,6 @@
 :root {
     --white: oklch(100% 0 0);
+    --blackish: oklch(17.764% 0.00002 271.152);
     
     --color-success: oklch(73.678% 0.2305 143.747);
     --color-warning: oklch(84.36% 0.16437 86.765);
@@ -11,15 +12,25 @@
 
     --medium-gray-color: #e0e0e0;
     --font-family: 'Helvetica Neue', Arial, sans-serif;
+    --background-color: var(--white);
     --text-color: oklch(32.109% 0.00004 271.152);
 
     color-scheme: light dark;
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: var(--blackish);
+        --color-secondary: oklch(34.07% 0.00004 271.152);
+        --text-color: var(--white);
+        --color-action: var(--white);
+    }
+}
+
 body {
     margin: 0;
     font-family: var(--font-family), sans-serif;
-    background-color: var(--white);
+    background-color: var(--background-color);
     color: var(--text-color);
     display: flex;
     justify-content: center;
