@@ -2,23 +2,26 @@
     --white: oklch(100% 0 0);
     --blackish: oklch(17.764% 0.00002 271.152);
     
+    --color-primary: oklch(66.906% 0.18376 248.826);
+    --color-secondary-default: oklch(95.514% 0.00011 271.152);
+    --color-secondary: var(--color-secondary-default);
     --color-success: oklch(73.678% 0.2305 143.747);
     --color-warning: oklch(84.36% 0.16437 86.765);
     --color-danger: oklch(62.793% 0.25768 29.223);
-    --color-primary: oklch(66.906% 0.18376 248.826);
-    --color-secondary: oklch(95.514% 0.00011 271.152);
+    --color-action-default: oklch(44.953% 0.00005 271.152);
+    --color-action: var(--color-action-default);
+
+    --control-px: 1rem;
+    --control-py: 0.5rem;
+    --control-radius: 0.5rem;
     --color-control: oklch(84.522% 0.0001 271.152);
     --background-color-control: var(--white);
-    --color-action: oklch(44.953% 0.00005 271.152);
-
-    --control-radius: 0.5rem;
-    --control-py: 0.5rem;
-    --control-px: 1rem;
 
     --medium-gray-color: #e0e0e0;
     --font-family: 'Helvetica Neue', Arial, sans-serif;
     --background-color: var(--white);
-    --text-color: oklch(32.109% 0.00004 271.152);
+    --text-color-default: oklch(32.109% 0.00004 271.152);
+    --text-color: var(--text-color);
 
     color-scheme: light dark;
 }
@@ -26,18 +29,18 @@
 @media (prefers-color-scheme: light) {
     :root {
         --background-color: var(--white);
-        --color-secondary: oklch(95.514% 0.00011 271.152);
-        --text-color: oklch(32.109% 0.00004 271.152);
-        --color-action: oklch(44.953% 0.00005 271.152);
+        --color-secondary: var(--color-secondary-default);
+        --text-color: var(--text-color-default);
+        --color-action: var(--color-action-default);
         --background-color-control: var(--white);
     }
 }
 
 .light body {
     --background-color: var(--white);
-    --color-secondary: oklch(95.514% 0.00011 271.152);
-    --text-color: oklch(32.109% 0.00004 271.152);
-    --color-action: oklch(44.953% 0.00005 271.152);
+    --color-secondary: var(--color-secondary-default);
+    --text-color: var(--text-color-default);
+    --color-action: var(--color-action-default);
     --background-color-control: var(--white);
 }
 
