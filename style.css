@@ -1,18 +1,25 @@
 :root {
-    --background-color: #ffffff;
-    --text-color: #333333;
-    --primary-color: #0099ff;
-    --light-gray-color: #f0f0f0;
+    --white: oklch(100% 0 0);
+    
+    --color-success: oklch(73.678% 0.2305 143.747);
+    --color-warning: oklch(84.36% 0.16437 86.765);
+    --color-danger: oklch(62.793% 0.25768 29.223);
+    --color-primary: oklch(66.906% 0.18376 248.826);
+    --color-secondary: oklch(95.514% 0.00011 271.152);
+    --color-control: oklch(84.522% 0.0001 271.152);
+    --color-action: oklch(44.953% 0.00005 271.152);
+
     --medium-gray-color: #e0e0e0;
-    --dark-gray-color: #cccccc;
-    --dark-icon-color: #555555;
     --font-family: 'Helvetica Neue', Arial, sans-serif;
+    --text-color: oklch(32.109% 0.00004 271.152);
+
+    color-scheme: light dark;
 }
 
 body {
     margin: 0;
     font-family: var(--font-family), sans-serif;
-    background-color: var(--background-color);
+    background-color: var(--white);
     color: var(--text-color);
     display: flex;
     justify-content: center;
@@ -54,7 +61,7 @@ header h1 {
 
 #guessed-words-container {
     width: 100%;
-    border: 1px solid var(--dark-gray-color);
+    border: 1px solid var(--color-control);
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
     box-sizing: border-box;
@@ -90,7 +97,7 @@ ul#guessed-words-list {
         border-bottom: 1px solid var(--medium-gray-color);
 
         &.pangram {
-            color: var(--primary-color);
+            color: var(--color-primary);
         }
     }
 }
@@ -130,7 +137,7 @@ ul#guessed-words-list {
     height: 4rem;
     border-radius: 0.75rem;
     border: none;
-    background-color: var(--light-gray-color);
+    background-color: var(--color-secondary);
     font-size: 1.8rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -139,8 +146,8 @@ ul#guessed-words-list {
 }
 
 .letter-key.center-key {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--white);
 }
 
 .action-buttons {
@@ -155,7 +162,7 @@ ul#guessed-words-list {
     height: 3.125rem;
     border-radius: 0.75rem;
     border: none;
-    background-color: var(--light-gray-color);
+    background-color: var(--color-secondary);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -164,15 +171,15 @@ ul#guessed-words-list {
 
 .action-btn .material-icons {
     font-size: 1.8rem;
-    color: var(--dark-icon-color);
+    color: var(--color-action);
 }
 
 .action-btn.primary {
-    background-color: var(--primary-color);
+    background-color: var(--color-primary);
 }
 
 .action-btn.primary .material-icons {
-    color: white;
+    color: var(--white);
 }
 
 /* Styles for setup page */
@@ -197,7 +204,7 @@ ul#guessed-words-list {
     padding: 0.8rem;
     font-size: 1.2rem;
     text-align: center;
-    border: 1px solid var(--dark-gray-color);
+    border: 1px solid var(--color-control);
     border-radius: 0.5rem;
     box-sizing: border-box;
 }
@@ -222,19 +229,19 @@ ul#guessed-words-list {
 }
 
 .correct-word {
-    color: #22cc33;
+    color: var(--color-success);
 }
 .already-guessed-word {
-    color: #fac327;
+    color: var(--color-warning);
 }
 
 .incorrect-word {
-    color: red;
+    color: var(--color-danger);
 }
 
 .field-description {
     font-size: 0.9rem;
-    color: var(--dark-icon-color);
+    color: var(--color-action-button);
     margin: 0;
     text-align: center;
 }
@@ -245,8 +252,8 @@ ul#guessed-words-list {
     font-weight: bold;
     border-radius: 0.5rem;
     border: none;
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--white);
     cursor: pointer;
     text-transform: uppercase;
 }
