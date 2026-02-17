@@ -37,7 +37,9 @@ setupForm.addEventListener('submit', (event) => {
 
 setupForm.addEventListener('formdata', (event) => {
     const formData = event.formData;
-    const words = formData.get('words').replaceAll(' ','');
+    const words = formData.get('words')
+        .replaceAll(/\s+/g,',')
+        .replaceAll(/,,+/g, ',');
     const encodedWords = encode(words);
     formData.set('words', encodedWords);
     // The 'letters' field doesn't need to be modified here because its value
