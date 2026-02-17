@@ -193,7 +193,9 @@ function updateGuessedWords() {
     recentlyGuessedWordsCount.textContent = recentWords.join(', ');
 
     guessedWordsList.innerHTML = '';
-    const sortedWords = [...guessedWords].sort();
+    const sortedWords = [...guessedWords]
+        .map(word => word.replaceAll('ĳ', 'ij'))
+        .sort();
     sortedWords.forEach(word => {
         const li = document.createElement('li');
         if (isPangram(word)) li.classList.add('pangram')
@@ -239,7 +241,9 @@ function createWordStats(guessedWords) {
     const score = calculateScore(guessedWords);
     const wordCount = guessedWords.length;
     let stats = `${wordCount}/${score}\n`;
-    const byStartLetter = Object.groupBy(guessedWords.sort(), (word) => word[0]);
+    let sortedWords = guessedWords.map(word => word.replaceAll('ĳ', 'ij')).sort();
+    sortedWords = sortedWords.map(word => word.replaceAll('ij', 'ĳ'));
+    const byStartLetter = Object.groupBy(sortedWords, (word) => word[0]);
     for (const [startLetter, words] of Object.entries(byStartLetter)) {
         stats += '\n';
         stats += startLetter.toUpperCase();
