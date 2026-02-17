@@ -11,6 +11,10 @@
     --background-color-control: var(--white);
     --color-action: oklch(44.953% 0.00005 271.152);
 
+    --control-radius: 0.5rem;
+    --control-py: 0.5rem;
+    --control-px: 1rem;
+
     --medium-gray-color: #e0e0e0;
     --font-family: 'Helvetica Neue', Arial, sans-serif;
     --background-color: var(--white);
@@ -117,8 +121,8 @@ header h1 {
 #guessed-words-container {
     width: 100%;
     border: 1px solid var(--color-control);
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+    border-radius: var(--control-radius);
+    padding: var(--control-py) var(--control-px);
     box-sizing: border-box;
 }
 
@@ -333,12 +337,10 @@ ul#guessed-words-list {
         grid-row-start: 1;
         width: 100%;
         appearance: none;
-        border-radius: 0.375rem;
+        border-radius: var(--control-radius);
         background-color: var(--background-color-control);
-        padding-top: 0.375rem;
-        padding-bottom: 0.375rem;
-        padding-left: 0.75rem;
-        padding-right: 2rem;
+        padding: var(--control-py) var(--control-px);
+        padding-right: 3rem;
         font-size: 1rem;
         color: var(--text-color);
         outline: 1px solid var(--color-control);
@@ -355,7 +357,7 @@ ul#guessed-words-list {
         pointer-events: none;
         grid-column-start: 1;
         grid-row-start: 1;
-        margin-right: 0.5rem;
+        margin-right: var(--control-px);
         font-size: 1.25rem;
         align-self: center;
         justify-self: end;
