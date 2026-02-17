@@ -285,6 +285,7 @@ ul#guessed-words-list {
 
 #word-input {
     font-weight: bold;
+    background-color: var(--background-color-control);
 }
 
 .correct-word {
