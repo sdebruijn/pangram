@@ -21,6 +21,11 @@ body {
     padding-top: 2rem;
 }
 
+p {
+    margin-block-start: 1.25rem;
+    margin-block-end: 1.25rem;
+}
+
 .app-container {
     width: 100%;
     max-width: 400px;
