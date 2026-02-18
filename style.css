@@ -65,7 +65,7 @@ header h1 {
 #guessed-words-container summary:after {
     margin-left: auto;
     content: 'expand_more';
-    font-family: 'Material Icons';
+    font-family: 'Material Icons', sans-serif;
     transition: transform 0.3s ease;
 }
 

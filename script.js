@@ -219,7 +219,7 @@ function calculateScore(words) {
 }
 
 function calculateWordScore(word) {
-    let points = 0;
+    let points;
     if (word.length === 4) {
         points = 1;
     } else {
