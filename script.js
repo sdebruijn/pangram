@@ -50,9 +50,9 @@ const guessedWordsList = document.getElementById('guessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
 const statsOutput = document.getElementById('stats-output');
 
-const isClipboardDisabled = !navigator.clipboard?.writeText;
-if (isClipboardDisabled) {
-    // No support for clipboard API, hide the copy stats button
+const useOutputBox = localStorage.getItem('use-output-box') === 'true';
+if (useOutputBox) {
+    // For users without support of the Clipboard API.
     copyStatsBtn.style.display = 'none';
     statsOutput.style.display = 'block';
 }
@@ -178,7 +178,7 @@ function updateGameState() {
     updateScore();
     saveGuessedWords();
 
-    if (isClipboardDisabled) {
+    if (useOutputBox) {
         statsOutput.textContent = createWordStats(guessedWords);
     }
 }
