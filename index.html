@@ -1,17 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl-NL">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pangram</title>
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        const colorScheme = localStorage.getItem('color-scheme');
+
+        let className = '';
+        switch (colorScheme) {
+            case 'dark':
+                className = 'dark'
+                break;
+            case 'light':
+                className = 'light'
+                break;
+        }
+
+        if (className) document.documentElement.classList.add(className);
+    </script>
 </head>
 <body>
     <div class="app-container">
         <header>
             <h1>Spelwijze</h1>
         </header>
+        <div class="settings">
+            <div class="select select-icon">
+                <span class="icon" aria-hidden="true">light_mode</span>
+                <label 
+                    htmlFor="color-scheme" 
+                    class="sr-only"
+                >Kleurenschema</label>
+                <div>
+                    <select id="color-scheme">
+                        <option value="">Auto</option>
+                        <option value="light">Licht</option>
+                        <option value="dark">Donker</option>
+                    </select>
+                    <span class="icon unfold-more" aria-hidden="true">unfold_more</span>
+                </div>
+            </div>
+        </div>
         <main>
             <div id="game-container">
                 <details id="guessed-words-container">
