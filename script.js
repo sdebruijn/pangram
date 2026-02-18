@@ -193,10 +193,7 @@ function updateGuessedWords() {
     recentlyGuessedWordsCount.textContent = recentWords.join(', ');
 
     guessedWordsList.innerHTML = '';
-    const sortedWords = [...guessedWords]
-        .map(word => word.replaceAll('ĳ', 'ij'))
-        .sort();
-    sortedWords.forEach(word => {
+    sortedGuessedWords().forEach(word => {
         const li = document.createElement('li');
         if (isPangram(word)) li.classList.add('pangram')
         li.textContent = word;
@@ -205,7 +202,7 @@ function updateGuessedWords() {
 }
 
 function isPangram(word) {
-    return new Set(word).size === letters.length;
+    return (new Set(word)).size === letters.length;
 }
 
 function updateScore() {
@@ -237,12 +234,16 @@ function calculateWordScore(word) {
     return points;
 }
 
+function sortedGuessedWords() {
+    let sortedWords = guessedWords.map(word => word.replaceAll('ĳ', 'ij')).sort();
+    return sortedWords.map(word => word.replaceAll('ij', 'ĳ'));
+}
+
 function createWordStats(guessedWords) {
     const score = calculateScore(guessedWords);
     const wordCount = guessedWords.length;
     let stats = `${wordCount}/${score}\n`;
-    let sortedWords = guessedWords.map(word => word.replaceAll('ĳ', 'ij')).sort();
-    sortedWords = sortedWords.map(word => word.replaceAll('ij', 'ĳ'));
+    const sortedWords = sortedGuessedWords();
     const byStartLetter = Object.groupBy(sortedWords, (word) => word[0]);
     for (const [startLetter, words] of Object.entries(byStartLetter)) {
         stats += '\n';
