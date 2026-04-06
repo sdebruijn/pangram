@@ -395,8 +395,22 @@ ul#guessed-words-list {
     }
 }
 
+.theme-toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color); 
+}
+
+.theme-toggle-button .material-icons {
+    font-size: 2rem; /* Larger icon for better visibility */
+}
+
 .settings {
     position: absolute;
-    bottom: 1rem;
     right: 1rem;
 }

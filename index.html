@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
+
         const colorScheme = localStorage.getItem('color-scheme');
 
         let className = '';
@@ -27,24 +28,12 @@
     <div class="app-container">
         <header>
             <h1>Spelwijze</h1>
-        </header>
-        <div class="settings">
-            <div class="select select-icon">
-                <span class="icon" aria-hidden="true">light_mode</span>
-                <label 
-                    htmlFor="color-scheme" 
-                    class="sr-only"
-                >Kleurenschema</label>
-                <div>
-                    <select id="color-scheme">
-                        <option value="">Auto</option>
-                        <option value="light">Licht</option>
-                        <option value="dark">Donker</option>
-                    </select>
-                    <span class="icon unfold-more" aria-hidden="true">unfold_more</span>
-                </div>
+            <div class="settings">
+                <button id="theme-toggle" class="theme-toggle-button top-right" aria-label="Toggle theme">
+                    <span class="material-icons" id="theme-icon">brightness_auto</span>
+                </button>        
             </div>
-        </div>
+        </header>
         <main>
             <div id="game-container">
                 <details id="guessed-words-container">
