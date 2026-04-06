@@ -269,3 +269,6 @@ function calculateLevels(maxScore) {
         level.requiredScore = Math.ceil(level.threshold * maxScore);
     }
 }
+
+
+
