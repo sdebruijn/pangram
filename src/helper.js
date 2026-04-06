@@ -1,11 +1,11 @@
-function encode(string) {
+export function encode(string) {
     return btoa(encodeURIComponent(string))
         .replaceAll('+', '-')
         .replaceAll('/', '_')
         .replaceAll('=', '');
 }
 
-function decode(string) {
+export function decode(string) {
     string = string.replaceAll('-', '+').replaceAll('_', '/');
     let padding = string.length % 4;
     if (padding === 1) {
@@ -19,8 +19,8 @@ function decode(string) {
     return decodeURIComponent(atob(string));
 }
 
-function isValidLetters(letters) {
-    if (letters === null) {
+export function isValidLetters(letters) {
+    if (typeof letters !== 'string') {
         return false;
     }
     if (/[^a-zĳ]/.test(letters)) {
@@ -38,11 +38,11 @@ function isValidLetters(letters) {
     return true;
 }
 
-function hasUniqueChars(string) {
+export function hasUniqueChars(string) {
     return new Set(string).size === string.length;
 }
 
-function shuffle(array) {
+export function shuffle(array) {
     let currentIndex = array.length;
     let randomIndex;
 
