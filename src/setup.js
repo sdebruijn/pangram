@@ -1,3 +1,5 @@
+import { encode, isValidLetters } from './helper.js';
+
 const setupForm = document.getElementById('setup-form');
 const lettersInput = document.getElementById('letters-input');
 const wordsInput = document.getElementById('words-input');
@@ -5,9 +7,8 @@ const dailyPuzzleBtn = document.getElementById('daily-puzzle-btn');
 const useOutputBoxCheckbox = document.getElementById('use-output-box');
 
 const useOutputBox = localStorage.getItem('use-output-box') === 'true';
-useOutputBoxCheckbox.value = useOutputBox;
+useOutputBoxCheckbox.checked = useOutputBox;
 useOutputBoxCheckbox.onchange = (event) => {
-    console.log(event);
     localStorage.setItem('use-output-box', event.target.checked);
 }
 

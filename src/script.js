@@ -1,3 +1,6 @@
+import { Game } from './game.js';
+import { isValidLetters, decode } from './helper.js';
+
 const DEFAULT_LETTERS = ["w", "a", "e", "g", "n", "r", "z"];
 const DEFAULT_WORDS = [
     "aangewezen", "aanwennen", "argwaan", "geween", "geweer", "gewennen", "gewezen",
@@ -8,24 +11,11 @@ const DEFAULT_WORDS = [
     "wrang", "zeeweg", "zeewezen", "zwaan", "zwaar", "zwager", "zwanenzang",
     "zwanger", "zwangere", "zwanzen", "zweer", "zweren"
 ];
-const levels = [
-    { name: "Opwarmronde", threshold: 0},
-    { name: "Aardig begin", threshold: 0.02},
-    { name: "Goed bezig", threshold: 0.05},
-    { name: "Ga zo door", threshold: 0.08},
-    { name: "Topper", threshold: 0.15},
-    { name: "Indrukwekkend", threshold: 0.25},
-    { name: "Meesterlijk", threshold: 0.4},
-    { name: "Briljant", threshold: 0.5},
-    { name: "Genie", threshold: 0.7},
-    { name: "Maximaal", threshold: 1}
-];
+
 const url = new URL(window.location.href);
 
 const lettersParam = url.searchParams.get('letters');
 const letters = isValidLetters(lettersParam) ? lettersParam.split('') : DEFAULT_LETTERS;
-const centerLetter = letters[0];
-let otherLetters = letters.slice(1);
 
 const wordsParam = url.searchParams.get('words');
 const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORDS;
@@ -33,6 +23,8 @@ const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORD
 const localStorageKey = `game-${letters.join('')}`;
 const storedWords = localStorage.getItem(localStorageKey);
 let guessedWords = storedWords ? storedWords.split(',') : [];
+
+const game = new Game(letters, words, guessedWords);
 
 const wordInput = document.getElementById('word-input');
 const letterKeys = document.querySelectorAll('.letter-key');
@@ -57,20 +49,17 @@ if (useOutputBox) {
     statsOutput.style.display = 'block';
 }
 
-centerLetterKey.innerText = centerLetter;
-shuffleLetters();
-const maxScore = calculateScore(words);
-maxScoreSpan.textContent = maxScore;
-calculateLevels(maxScore);
-updateGameState();
+centerLetterKey.innerText = game.centerLetter;
+updateLetters();
+maxScoreSpan.textContent = game.maxScore;
+updateGameStateDisplay();
 
-function shuffleLetters() {
-    shuffle(otherLetters);
-    normalLetterKeys.forEach((key,idx) => key.innerText = otherLetters[idx]);
+function updateLetters() {
+    normalLetterKeys.forEach((key,idx) => key.innerText = game.otherLetters[idx]);
 }
 
 copyStatsBtn.addEventListener('click', () => {
-    const wordStats = createWordStats(guessedWords);
+    const wordStats = game.createWordStats();
     navigator.clipboard.writeText(wordStats)
         .then(() => {
             console.log('Stats copied to clipboard.');
@@ -89,7 +78,10 @@ letterKeys.forEach(key => {
 });
 
 backspaceBtn.addEventListener('click', () => wordInput.value = wordInput.value.slice(0, -1));
-shuffleBtn.addEventListener('click', () => shuffleLetters());
+shuffleBtn.addEventListener('click', () => {
+    game.shuffleLetters();
+    updateLetters();
+});
 submitBtn.addEventListener('click', () => submitWord());
 
 wordInput.addEventListener('keydown', (e) => {
@@ -118,157 +110,49 @@ function resetInput() {
 
 function submitWord() {
     if (!wordInput.value) return;
-    const word = wordInput.value.toLowerCase().replaceAll('ij', 'ĳ');
-    const message = getMessage(word);
+    const result = game.submitWord(wordInput.value);
 
     wordResultAnimationTimeout = setTimeout(() => {
         resetInput();
     }, 1000);
 
-    console.log(message.message(word));
-    wordInput.classList.add(message.appearance);
+    console.log(result.message);
+    wordInput.classList.add(result.appearance);
     isSubmitted = true;
-    if (message === messages.correct) {
-        guessedWords.push(word);
-        updateGameState();
+    if (result.isCorrect) {
+        updateGameStateDisplay();
     }
 }
 
-const messages = {
-    tooShort: {
-        message: (word) => `${word} - too short.`,
-        appearance: 'incorrect-word',
-    },
-    missingCenterLetter: {
-        message: (word) => `${word} - must contain ${centerLetter}.`,
-        appearance: 'incorrect-word',
-    },
-    notInList: {
-        message: (word) => `${word} - not in list.`,
-        appearance: 'incorrect-word',
-    },
-    alreadyFound: {
-        message: (word) => `${word} - already found.`,
-        appearance: 'already-guessed-word',
-    },
-    correct: {
-        message: (word) => `${word} - correct.`,
-        appearance: 'correct-word',
-    },
-};
-
-function getMessage(word) {
-    if (word.length < 4) {
-        return messages.tooShort;
-    }
-    if (!word.includes(centerLetter)) {
-        return messages.missingCenterLetter;
-    }
-    if (!words.includes(word)) {
-        return messages.notInList;
-    }
-    if (guessedWords.includes(word)) {
-        return messages.alreadyFound;
-    }
-    return messages.correct;
-}
-
-function updateGameState() {
-    updateGuessedWords();
-    updateScore();
+function updateGameStateDisplay() {
+    updateGuessedWordsDisplay();
+    updateScoreDisplay();
     saveGuessedWords();
 
     if (useOutputBox) {
-        statsOutput.textContent = createWordStats(guessedWords);
+        statsOutput.textContent = game.createWordStats();
     }
 }
 
 function saveGuessedWords() {
-    localStorage.setItem(localStorageKey, guessedWords.join(','));
+    localStorage.setItem(localStorageKey, game.guessedWords.join(','));
 }
 
-function updateGuessedWords() {
-    const recentWords = guessedWords.slice(-5).reverse() ?? [];
-    guessedWordsCount.textContent = `(${guessedWords.length}/${words.length})`;
+function updateGuessedWordsDisplay() {
+    const recentWords = game.guessedWords.slice(-5).reverse() ?? [];
+    guessedWordsCount.textContent = `(${game.guessedWords.length}/${game.words.length})`;
     recentlyGuessedWordsCount.textContent = recentWords.join(', ');
 
     guessedWordsList.innerHTML = '';
-    sortedGuessedWords().forEach(word => {
+    game.sortedGuessedWords().forEach(word => {
         const li = document.createElement('li');
-        if (isPangram(word)) li.classList.add('pangram')
+        if (game.isPangram(word)) li.classList.add('pangram')
         li.textContent = word;
         guessedWordsList.appendChild(li);
     });
 }
 
-function isPangram(word) {
-    return (new Set(word)).size === letters.length;
+function updateScoreDisplay() {
+    scoreSpan.textContent = game.getScore();
+    levelSpan.textContent = game.getCurrentLevel();
 }
-
-function updateScore() {
-    scoreSpan.textContent = calculateScore(guessedWords);
-    levelSpan.textContent = levels.findLast(level => calculateScore(guessedWords) >= level.requiredScore).name;
-}
-
-function calculateScore(words) {
-    let score = 0;
-    for (const word of words) {
-        score += calculateWordScore(word);
-    }
-    return score;
-}
-
-function calculateWordScore(word) {
-    let points;
-    if (word.length === 4) {
-        points = 1;
-    } else {
-        points = word.length;
-    }
-
-    const isPangram = new Set(word).size === letters.length;
-    if (isPangram) {
-        points += 7;
-    }
-
-    return points;
-}
-
-function sortedGuessedWords() {
-    let sortedWords = guessedWords.map(word => word.replaceAll('ĳ', 'ij')).sort();
-    return sortedWords.map(word => word.replaceAll('ij', 'ĳ'));
-}
-
-function createWordStats(guessedWords) {
-    const score = calculateScore(guessedWords);
-    const wordCount = guessedWords.length;
-    let stats = `${wordCount}/${score}\n`;
-    const sortedWords = sortedGuessedWords();
-    const byStartLetter = Object.groupBy(sortedWords, (word) => word[0]);
-    for (const [startLetter, words] of Object.entries(byStartLetter)) {
-        stats += '\n';
-        stats += startLetter.toUpperCase();
-        words.forEach((word, index) => {
-            if (index !== 0 && (index) % 4 === 0) {
-                stats += '.';
-            }
-            if (word.length === 10) {
-                stats += 'X';
-            } else if (word.length > 10) {
-                stats += `${word.length}`;
-            } else {
-                stats += word.length;
-            }
-        });
-    }
-    return stats;
-}
-
-function calculateLevels(maxScore) {
-    for (const level of levels) {
-        level.requiredScore = Math.ceil(level.threshold * maxScore);
-    }
-}
-
-
-

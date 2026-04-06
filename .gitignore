@@ -1,3 +1,6 @@
+node_modules/
+dist/
+
 # General
 .DS_Store
 __MACOSX/
@@ -35,5 +38,3 @@ Temporary Items
 
 # Built Visual Studio Code Extensions
 *.vsix
-
-node_modules/
