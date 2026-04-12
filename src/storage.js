@@ -2,11 +2,11 @@ export class Storage {
     static PUZZLES_KEY = 'puzzles';
     static CURRENT_PUZZLE_KEY = 'current_puzzle_id';
 
-    static saveGameState(puzzleId, state, revealTimestamp) {
+    static saveGameState(puzzleId, state, timeOfNextPuzzle) {
         // 1. Save individual puzzle information
         const puzzleData = {
             ...state,
-            revealTimestamp: revealTimestamp,
+            timeOfNextPuzzle: timeOfNextPuzzle,
         };
         localStorage.setItem(puzzleId, JSON.stringify(puzzleData));
 

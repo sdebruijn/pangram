@@ -22,25 +22,28 @@ const wordsParam = url.searchParams.get('words');
 const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORDS;
 
 const date = url.searchParams.get('date');
-const revealTimestamp = url.searchParams.get('revealTimestamp');
+const timeOfNextPuzzle = url.searchParams.get('timeOfNextPuzzle') ? parseInt(url.searchParams.get('timeOfNextPuzzle')) : null;
 
 let game;
 let puzzleId = null;
 
 if (date && lettersParam) {
-    puzzleId = `${date}_${lettersParam.toLowerCase()}`;
+    puzzleId = `puzzle_${date}_${lettersParam.toLowerCase()}`;
     const savedState = Storage.getGameState(puzzleId);
     if (savedState) {
         game = Game.fromState(savedState);
+        if (!game.timeOfNextPuzzle && timeOfNextPuzzle) {
+            game.timeOfNextPuzzle = timeOfNextPuzzle;
+        }
     } else {
-        game = new Game(letters, words);
+        game = new Game(letters, words, [], timeOfNextPuzzle);
     }
 } else {
     // Fallback for custom puzzles or if date/originId are missing
     const localStorageKey = `game-${letters.join('')}`;
     const storedWords = localStorage.getItem(localStorageKey);
     let guessedWords = storedWords ? storedWords.split(',') : [];
-    game = new Game(letters, words, guessedWords);
+    game = new Game(letters, words, guessedWords, timeOfNextPuzzle);
 }
 
 const wordInput = document.getElementById('word-input');
@@ -56,6 +59,10 @@ const levelSpan = document.getElementById('level');
 const guessedWordsCount = document.getElementById('guessed-words-count');
 const recentlyGuessedWordsCount = document.getElementById('recently-guessed-words-list');
 const guessedWordsList = document.getElementById('guessed-words-list');
+const revealContainer = document.getElementById('reveal-container');
+const showSolutionBtn = document.getElementById('show-solution-btn');
+const hideSolutionBtn = document.getElementById('hide-solution-btn');
+const unguessedWordsList = document.getElementById('unguessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
 const statsOutput = document.getElementById('stats-output');
 
@@ -70,6 +77,7 @@ centerLetterKey.innerText = game.centerLetter;
 updateLetters();
 maxScoreSpan.textContent = game.maxScore;
 updateGameStateDisplay();
+updateRevealDisplay();
 
 function updateLetters() {
     normalLetterKeys.forEach((key,idx) => key.innerText = game.otherLetters[idx]);
@@ -101,6 +109,23 @@ shuffleBtn.addEventListener('click', () => {
     saveGameState(); // Save shuffle state
 });
 submitBtn.addEventListener('click', () => submitWord());
+
+showSolutionBtn.addEventListener('click', () => {
+    unguessedWordsList.style.display = 'block';
+    showSolutionBtn.style.display = 'none';
+    showSolutionBtn.disabled = true;
+    hideSolutionBtn.style.display = 'block';
+    hideSolutionBtn.disabled = false;
+    updateUnguessedWordsDisplay();
+});
+
+hideSolutionBtn.addEventListener('click', () => {
+    unguessedWordsList.style.display = 'none';
+    showSolutionBtn.style.display = 'block';
+    showSolutionBtn.disabled = false;
+    hideSolutionBtn.style.display = 'none';
+    hideSolutionBtn.disabled = true;
+});
 
 wordInput.addEventListener('keydown', (e) => {
     interruptWordResultAnimation();
@@ -140,6 +165,7 @@ function submitWord() {
     if (result.isCorrect) {
         updateGameStateDisplay();
     }
+    updateRevealDisplay();
 }
 
 function updateGameStateDisplay() {
@@ -152,9 +178,28 @@ function updateGameStateDisplay() {
     }
 }
 
+function updateRevealDisplay() {
+    if (game.timeOfNextPuzzle && Date.now() > game.timeOfNextPuzzle) {
+        revealContainer.style.display = 'block';
+    } else {
+        revealContainer.style.display = 'none';
+    }
+}
+
+function updateUnguessedWordsDisplay() {
+    unguessedWordsList.innerHTML = '';
+    const unguessedWords = game.words.filter(word => !game.guessedWords.includes(word));
+    unguessedWords.map(word => word.replaceAll('ĳ', 'ij')).sort().map(word => word.replaceAll('ij', 'ĳ')).forEach(word => {
+        const li = document.createElement('li');
+        if (game.isPangram(word)) li.classList.add('pangram')
+        li.textContent = word;
+        unguessedWordsList.appendChild(li);
+    });
+}
+
 function saveGameState() {
     if (puzzleId) {
-        Storage.saveGameState(puzzleId, game.getState(), revealTimestamp);
+        Storage.saveGameState(puzzleId, game.getState(), timeOfNextPuzzle);
     } else {
         const localStorageKey = `game-${game.letters.join('')}`;
         localStorage.setItem(localStorageKey, game.guessedWords.join(','));

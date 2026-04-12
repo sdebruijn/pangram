@@ -101,19 +101,25 @@ describe('Game', () => {
     });
 
     test('should return correct state from getState', () => {
-        game.submitWord('weer');
-        const state = game.getState();
+        const timeOfNextPuzzle = 1776031200000;
+        const gameWithTime = new Game(letters, words, [], timeOfNextPuzzle);
+        gameWithTime.submitWord('weer');
+        const state = gameWithTime.getState();
         expect(state.letters).toEqual(letters);
         expect(state.words).toEqual(words);
         expect(state.guessedWords).toEqual(['weer']);
+        expect(state.timeOfNextPuzzle).toBe(timeOfNextPuzzle);
     });
 
     test('should create Game instance from state using fromState', () => {
+        const timeOfNextPuzzle = 1776031200000;
+        game.timeOfNextPuzzle = timeOfNextPuzzle;
         game.submitWord('weer');
         const state = game.getState();
         const restoredGame = Game.fromState(state);
         expect(restoredGame.letters).toEqual(letters);
         expect(restoredGame.words).toEqual(words);
         expect(restoredGame.guessedWords).toEqual(['weer']);
+        expect(restoredGame.timeOfNextPuzzle).toBe(timeOfNextPuzzle);
     });
 });

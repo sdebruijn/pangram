@@ -41,7 +41,16 @@
                         <span id="recently-guessed-words-list"></span>
                         <span id="guessed-words-count">(0/0)</span>
                     </summary>
-                    <ul id="guessed-words-list"></ul>
+                    <div id="guessed-words-list-wrapper">
+                        <ul id="guessed-words-list"></ul>
+                        <div id="reveal-container" style="display: none;">
+                            <div class="reveal-buttons">
+                                <button id="show-solution-btn">Oplossing</button>
+                                <button id="hide-solution-btn" style="display: none;" disabled>Verberg oplossing</button>
+                            </div>
+                            <ul id="unguessed-words-list" style="display: none;"></ul>
+                        </div>
+
                 </details>
                 <div id="score-container">
                     <p>Score: <span id="score">0</span>/<span id="max-score">0</span> (<span id="level"></span>)</p>

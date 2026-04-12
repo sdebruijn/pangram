@@ -1,12 +1,13 @@
 import {shuffle} from './helper.js';
 
 export class Game {
-    constructor(letters, words, guessedWords = []) {
+    constructor(letters, words, guessedWords = [], timeOfNextPuzzle = null) {
         this.letters = letters;
         this.centerLetter = letters[0];
         this.otherLetters = letters.slice(1);
         this.words = words;
         this.guessedWords = guessedWords;
+        this.timeOfNextPuzzle = timeOfNextPuzzle;
 
         this.levels = [
             { name: "Opwarmronde", threshold: 0},
@@ -53,11 +54,12 @@ export class Game {
             letters: this.letters,
             words: this.words,
             guessedWords: this.guessedWords,
+            timeOfNextPuzzle: this.timeOfNextPuzzle,
         };
     }
 
     static fromState(state) {
-        return new Game(state.letters, state.words, state.guessedWords);
+        return new Game(state.letters, state.words, state.guessedWords, state.timeOfNextPuzzle);
     }
 
     shuffleLetters() {

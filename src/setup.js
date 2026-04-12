@@ -15,15 +15,15 @@ useOutputBoxCheckbox.onchange = (event) => {
 dailyPuzzleBtn.addEventListener('click', async () => {
     const puzzle = await getPuzzle();
     if (puzzle) {
-        const { letters, words, date, revealTimestamp } = puzzle;
+        const { letters, words, date, timeOfNextPuzzle } = puzzle;
         const encodedWords = encode(words);
 
         const url = new URL('index.html', window.location.href);
         url.searchParams.set('letters', letters);
         url.searchParams.set('words', encodedWords);
         url.searchParams.set('date', date);
-        if (revealTimestamp) {
-            url.searchParams.set('revealTimestamp', revealTimestamp);
+        if (timeOfNextPuzzle) {
+            url.searchParams.set('timeOfNextPuzzle', timeOfNextPuzzle);
         }
         window.location.href = url.href;
     }
@@ -49,13 +49,13 @@ async function getPuzzle() {
 
         const letters = result.puzzle.originId.toLowerCase();
         const date = result.date;
-        const revealTimestamp = result.timeOfNextPuzzle;
+        const timeOfNextPuzzle = result.timeOfNextPuzzle;
 
         const words = result.puzzle.words.map((obj) => obj.p);
         console.log(letters, words);
         const wordList = words.join(',');
 
-        return { letters, words: wordList, date, revealTimestamp } ;
+        return { letters, words: wordList, date, timeOfNextPuzzle } ;
     } catch (error) {
         console.error(error.message);
     }

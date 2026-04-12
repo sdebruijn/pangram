@@ -64,7 +64,7 @@
 
 .icon {
     font-family: 'Material Icons';
-    color: var(color-action);
+    color: var(--color-action);
 }
 
 .sr-only {
@@ -152,7 +152,7 @@ header h1 {
     transform: rotate(180deg);
 }
 
-ul#guessed-words-list {
+ul#guessed-words-list, ul#unguessed-words-list {
     margin-top: 1rem;
     padding-left: 0;
     list-style: none; /* Remove default marker */
@@ -167,6 +167,23 @@ ul#guessed-words-list {
             color: var(--color-primary);
         }
     }
+}
+
+#show-solution-btn, #hide-solution-btn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border: 1px solid var(--color-control);
+    border-radius: var(--control-radius);
+    background-color: var(--color-secondary);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#show-solution-btn:disabled, #hide-solution-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 #score-container {
@@ -309,7 +326,7 @@ ul#guessed-words-list {
 
 .field-description {
     font-size: 0.9rem;
-    color: var(--color-action-button);
+    color: var(--color-action);
     margin: 0;
     text-align: center;
 }
