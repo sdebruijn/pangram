@@ -1,5 +1,6 @@
 import { Game } from './game.js';
 import { isValidLetters, decode } from './helper.js';
+import { Storage } from './storage.js';
 
 const DEFAULT_LETTERS = ["w", "a", "e", "g", "n", "r", "z"];
 const DEFAULT_WORDS = [
@@ -20,11 +21,27 @@ const letters = isValidLetters(lettersParam) ? lettersParam.split('') : DEFAULT_
 const wordsParam = url.searchParams.get('words');
 const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORDS;
 
-const localStorageKey = `game-${letters.join('')}`;
-const storedWords = localStorage.getItem(localStorageKey);
-let guessedWords = storedWords ? storedWords.split(',') : [];
+const date = url.searchParams.get('date');
+const revealTimestamp = url.searchParams.get('revealTimestamp');
 
-const game = new Game(letters, words, guessedWords);
+let game;
+let puzzleId = null;
+
+if (date && lettersParam) {
+    puzzleId = `${date}_${lettersParam.toLowerCase()}`;
+    const savedState = Storage.getGameState(puzzleId);
+    if (savedState) {
+        game = Game.fromState(savedState);
+    } else {
+        game = new Game(letters, words);
+    }
+} else {
+    // Fallback for custom puzzles or if date/originId are missing
+    const localStorageKey = `game-${letters.join('')}`;
+    const storedWords = localStorage.getItem(localStorageKey);
+    let guessedWords = storedWords ? storedWords.split(',') : [];
+    game = new Game(letters, words, guessedWords);
+}
 
 const wordInput = document.getElementById('word-input');
 const letterKeys = document.querySelectorAll('.letter-key');
@@ -81,6 +98,7 @@ backspaceBtn.addEventListener('click', () => wordInput.value = wordInput.value.s
 shuffleBtn.addEventListener('click', () => {
     game.shuffleLetters();
     updateLetters();
+    saveGameState(); // Save shuffle state
 });
 submitBtn.addEventListener('click', () => submitWord());
 
@@ -127,15 +145,20 @@ function submitWord() {
 function updateGameStateDisplay() {
     updateGuessedWordsDisplay();
     updateScoreDisplay();
-    saveGuessedWords();
+    saveGameState();
 
     if (useOutputBox) {
         statsOutput.textContent = game.createWordStats();
     }
 }
 
-function saveGuessedWords() {
-    localStorage.setItem(localStorageKey, game.guessedWords.join(','));
+function saveGameState() {
+    if (puzzleId) {
+        Storage.saveGameState(puzzleId, game.getState(), revealTimestamp);
+    } else {
+        const localStorageKey = `game-${game.letters.join('')}`;
+        localStorage.setItem(localStorageKey, game.guessedWords.join(','));
+    }
 }
 
 function updateGuessedWordsDisplay() {
