@@ -1,4 +1,4 @@
-import { shuffle } from './helper.js';
+import {shuffle} from './helper.js';
 
 export class Game {
     constructor(letters, words, guessedWords = []) {
@@ -46,6 +46,18 @@ export class Game {
 
         this.maxScore = this.calculateScore(this.words);
         this._calculateLevels();
+    }
+
+    getState() {
+        return {
+            letters: this.letters,
+            words: this.words,
+            guessedWords: this.guessedWords,
+        };
+    }
+
+    static fromState(state) {
+        return new Game(state.letters, state.words, state.guessedWords);
     }
 
     shuffleLetters() {

@@ -99,4 +99,21 @@ describe('Game', () => {
         // Z: zwaar(5), zweer(5) -> Z55
         expect(stats).toContain('Z55');
     });
+
+    test('should return correct state from getState', () => {
+        game.submitWord('weer');
+        const state = game.getState();
+        expect(state.letters).toEqual(letters);
+        expect(state.words).toEqual(words);
+        expect(state.guessedWords).toEqual(['weer']);
+    });
+
+    test('should create Game instance from state using fromState', () => {
+        game.submitWord('weer');
+        const state = game.getState();
+        const restoredGame = Game.fromState(state);
+        expect(restoredGame.letters).toEqual(letters);
+        expect(restoredGame.words).toEqual(words);
+        expect(restoredGame.guessedWords).toEqual(['weer']);
+    });
 });
