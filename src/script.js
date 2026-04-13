@@ -1,7 +1,7 @@
 import { Game } from './game.js';
 import { isValidLetters, decode } from './helper.js';
 import { Storage } from './storage.js';
-import { loadTodayPuzzle } from './puzzle-loader.js';
+import { loadTodayPuzzle, loadPuzzle } from './puzzle-loader.js';
 
 const DEFAULT_LETTERS = ["w", "a", "e", "g", "n", "r", "z"];
 const DEFAULT_WORDS = [
@@ -66,6 +66,50 @@ todayPuzzleMenuItem.addEventListener('click', async () => {
         mainMenu.hidePopover();
     }
 });
+
+populateMenu();
+
+function populateMenu() {
+    const today = new Date().toISOString().split('T')[0];
+    const puzzles = Storage.getPuzzlesList()
+        .filter(id => !id.startsWith(`puzzle_${today}_`))
+        .sort()
+        .reverse();
+
+    puzzles.forEach(id => {
+        // Expected format: puzzle_YYYY-MM-DD_letters or puzzle_custom_letters
+        const parts = id.split('_');
+        let dateStr = 'Custom';
+        let lettersStr = '';
+
+        if (parts.length >= 3) {
+            dateStr = parts[1] === 'custom' ? 'Custom' : parts[1];
+            lettersStr = parts[2].toUpperCase();
+        } else if (parts.length === 2) {
+            lettersStr = parts[1].toUpperCase();
+        }
+
+        const li = document.createElement('li');
+        li.role = 'menuitem';
+        
+        if (lettersStr) {
+            const centerLetter = lettersStr[0];
+            const otherLetters = lettersStr.slice(1);
+            li.innerHTML = `${dateStr} (<span class="menu-center-letter">${centerLetter}</span>${otherLetters})`;
+        } else {
+            li.textContent = dateStr;
+        }
+
+        li.addEventListener('click', () => {
+            if (id === puzzleId) {
+                mainMenu.hidePopover();
+            } else {
+                loadPuzzle(id);
+            }
+        });
+        mainMenu.appendChild(li);
+    });
+}
 
 const useOutputBox = localStorage.getItem('use-output-box') === 'true';
 if (useOutputBox) {

@@ -459,3 +459,8 @@ ul#guessed-words-list, ul#unguessed-words-list {
 [popover] li:hover {
     background-color: var(--color-secondary);
 }
+
+.menu-center-letter {
+    font-weight: bold;
+    color: var(--color-primary);
+}
