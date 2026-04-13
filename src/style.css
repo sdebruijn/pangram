@@ -236,7 +236,7 @@ ul#guessed-words-list, ul#unguessed-words-list {
 
 .action-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     touch-action: manipulation;
 }
