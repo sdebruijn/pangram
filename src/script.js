@@ -1,6 +1,7 @@
 import { Game } from './game.js';
 import { isValidLetters, decode } from './helper.js';
 import { Storage } from './storage.js';
+import { loadTodayPuzzle } from './puzzle-loader.js';
 
 const DEFAULT_LETTERS = ["w", "a", "e", "g", "n", "r", "z"];
 const DEFAULT_WORDS = [
@@ -24,26 +25,17 @@ const words = wordsParam !== null ? decode(wordsParam).split(',') : DEFAULT_WORD
 const date = url.searchParams.get('date');
 const timeOfNextPuzzle = url.searchParams.get('timeOfNextPuzzle') ? parseInt(url.searchParams.get('timeOfNextPuzzle')) : null;
 
-let game;
-let puzzleId = null;
+let puzzleId = (date && lettersParam) ? `puzzle_${date}_${lettersParam.toLowerCase()}` : null;
+const savedState = puzzleId ? Storage.getGameState(puzzleId) : null;
 
-if (date && lettersParam) {
-    puzzleId = `puzzle_${date}_${lettersParam.toLowerCase()}`;
-    const savedState = Storage.getGameState(puzzleId);
-    if (savedState) {
-        game = Game.fromState(savedState);
-        if (!game.timeOfNextPuzzle && timeOfNextPuzzle) {
-            game.timeOfNextPuzzle = timeOfNextPuzzle;
-        }
-    } else {
-        game = new Game(letters, words, [], timeOfNextPuzzle);
+let game;
+if (savedState) {
+    game = Game.fromState(savedState);
+    if (!game.timeOfNextPuzzle && timeOfNextPuzzle) {
+        game.timeOfNextPuzzle = timeOfNextPuzzle;
     }
 } else {
-    // Fallback for custom puzzles or if date/originId are missing
-    const localStorageKey = `game-${letters.join('')}`;
-    const storedWords = localStorage.getItem(localStorageKey);
-    let guessedWords = storedWords ? storedWords.split(',') : [];
-    game = new Game(letters, words, guessedWords, timeOfNextPuzzle);
+    game = new Game(letters, words, [], timeOfNextPuzzle);
 }
 
 const wordInput = document.getElementById('word-input');
@@ -65,6 +57,11 @@ const hideSolutionBtn = document.getElementById('hide-solution-btn');
 const unguessedWordsList = document.getElementById('unguessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
 const statsOutput = document.getElementById('stats-output');
+const todayPuzzleMenuItem = document.getElementById('today-puzzle-menu-item');
+
+todayPuzzleMenuItem.addEventListener('click', async () => {
+    await loadTodayPuzzle();
+});
 
 const useOutputBox = localStorage.getItem('use-output-box') === 'true';
 if (useOutputBox) {
@@ -200,9 +197,6 @@ function updateUnguessedWordsDisplay() {
 function saveGameState() {
     if (puzzleId) {
         Storage.saveGameState(puzzleId, game.getState(), timeOfNextPuzzle);
-    } else {
-        const localStorageKey = `game-${game.letters.join('')}`;
-        localStorage.setItem(localStorageKey, game.guessedWords.join(','));
     }
 }
 

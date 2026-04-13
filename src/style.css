@@ -412,7 +412,7 @@ ul#guessed-words-list, ul#unguessed-words-list {
     }
 }
 
-.theme-toggle-button {
+.theme-toggle-button, .menu-button {
     background: none;
     border: none;
     cursor: pointer;
@@ -423,11 +423,39 @@ ul#guessed-words-list, ul#unguessed-words-list {
     color: var(--text-color); 
 }
 
-.theme-toggle-button .material-icons {
-    font-size: 2rem; /* Larger icon for better visibility */
+.theme-toggle-button .material-icons, .menu-button .material-icons {
+    font-size: 2rem;
 }
 
 .settings {
     position: absolute;
     right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+[popover] {
+    border: 1px solid var(--color-control);
+    border-radius: var(--control-radius);
+    background-color: var(--background-color-control);
+    color: var(--text-color);
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin: 0;
+    inset: unset;
+    right: 1rem;
+    top: 4.5rem;
+    list-style: none;
+    min-width: 8rem;
+}
+
+[popover] li {
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+[popover] li:hover {
+    background-color: var(--color-secondary);
 }

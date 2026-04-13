@@ -29,9 +29,15 @@
         <header>
             <h1>Spelwijze</h1>
             <div class="settings">
-                <button id="theme-toggle" class="theme-toggle-button top-right" aria-label="Toggle theme">
+                <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle theme">
                     <span class="material-icons" id="theme-icon">brightness_auto</span>
-                </button>        
+                </button>
+                <button id="menu-button" class="menu-button" popovertarget="main-menu" aria-label="Open menu">
+                    <span class="material-icons">menu</span>
+                </button>
+                <menu id="main-menu" popover role="menu">
+                    <li role="menuitem" id="today-puzzle-menu-item">Vandaag</li>
+                </menu>
             </div>
         </header>
         <main>
