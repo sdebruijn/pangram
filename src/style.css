@@ -62,23 +62,6 @@
     --background-color-control: var(--blackish);
 }
 
-.icon {
-    font-family: 'Material Icons';
-    color: var(--color-action);
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
 body {
     margin: 0;
     font-family: var(--font-family), sans-serif;
@@ -323,6 +306,7 @@ ul#guessed-words-list, ul#unguessed-words-list {
 .correct-word {
     color: var(--color-success);
 }
+
 .already-guessed-word {
     color: var(--color-warning);
 }
@@ -357,66 +341,6 @@ ul#guessed-words-list, ul#unguessed-words-list {
     width: 50%;
     border-radius: 0.5rem;
     user-select: all;
-}
-
-.select {
-    &.select-icon {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-
-        > div {
-            flex: 1;
-        }
-    }
-
-    > div {
-        display: grid;
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
-
-    select {
-        grid-column-start: 1;
-        grid-row-start: 1;
-        width: 100%;
-        appearance: none;
-        border-radius: var(--control-radius);
-        background-color: var(--background-color-control);
-        padding: var(--control-py) var(--control-px);
-        padding-right: 3rem;
-        font-size: 1rem;
-        color: var(--text-color);
-        outline: 1px solid var(--color-control);
-        outline-offset: -1px;
-    }
-
-    select:focus-visible {
-        outline-width: 2px;
-        outline-offset: -2px;
-        outline-color: var(--color-primary);
-    }
-
-    .unfold-more {
-        pointer-events: none;
-        grid-column-start: 1;
-        grid-row-start: 1;
-        margin-right: var(--control-px);
-        font-size: 1.25rem;
-        align-self: center;
-        justify-self: end;
-        color: var(--text-color);
-    }
-
-    @media (min-width: 640px) {
-        select {
-            font-size: 0.875rem;
-            line-height: 1.5rem;
-        }
-
-        .unfold-more {
-            font-size: 1rem;
-        }
-    }
 }
 
 .theme-toggle-button, .menu-button {
