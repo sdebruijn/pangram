@@ -117,21 +117,20 @@ header h1 {
     box-sizing: border-box;
 }
 
-#guessed-words-container summary {
+summary {
     display: flex;
     gap: 0.5rem;
     cursor: pointer;
     list-style: none; /* Remove default marker */
 }
 
-#guessed-words-container summary:after {
+summary .feather-chevron-down {
     margin-left: auto;
-    content: 'expand_more';
     font-family: 'Material Icons', sans-serif;
     transition: transform 0.3s ease;
 }
 
-#guessed-words-container[open] summary:after {
+details[open] summary .feather-chevron-down {
     transform: rotate(180deg);
 }
 
@@ -243,8 +242,9 @@ ul#guessed-words-list, ul#unguessed-words-list {
     align-items: center;
 }
 
-.action-btn .material-icons {
-    font-size: 1.8rem;
+.action-btn .icon {
+    width: 1.8rem;
+    height: 1.8rem;
     color: var(--color-action);
 }
 
@@ -252,7 +252,7 @@ ul#guessed-words-list, ul#unguessed-words-list {
     background-color: var(--color-primary);
 }
 
-.action-btn.primary .material-icons {
+.action-btn.primary .icon {
     color: var(--white);
 }
 
@@ -354,8 +354,9 @@ ul#guessed-words-list, ul#unguessed-words-list {
     color: var(--text-color); 
 }
 
-.theme-toggle-button .material-icons, .menu-button .material-icons {
-    font-size: 2rem;
+.theme-toggle-button .icon, .menu-button .icon {
+    width: 2rem;
+    height: 2rem;
 }
 
 .settings {
