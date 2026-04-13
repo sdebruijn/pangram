@@ -1,20 +1,54 @@
 import { encode } from './helper.js';
+import { Storage } from './storage.js';
 
-export async function loadTodayPuzzle() {
+export async function loadTodayPuzzle(currentPuzzleId) {
+    const today = new Date().toISOString().split('T')[0];
+
+    if (currentPuzzleId && currentPuzzleId.startsWith(`puzzle_${today}_`)) {
+        return false;
+    }
+
+    const puzzles = Storage.getPuzzlesList();
+    const todayPuzzleId = puzzles.find(id => id.startsWith(`puzzle_${today}_`));
+
+    if (todayPuzzleId) {
+        const savedState = Storage.getGameState(todayPuzzleId);
+        if (savedState) {
+            console.log("Loaded today's puzzle from local storage...");
+            redirectToGame(savedState.letters.join(''), encode(savedState.words.join(',')), today, savedState.timeOfNextPuzzle);
+            return true;
+        }
+    }
+
+    console.log("Loading today's puzzle from the API");
     const puzzle = await getPuzzle();
     if (puzzle) {
-        const { letters, words, date, timeOfNextPuzzle } = puzzle;
-        const encodedWords = encode(words);
-
-        const url = new URL('index.html', window.location.origin + window.location.pathname);
-        url.searchParams.set('letters', letters);
-        url.searchParams.set('words', encodedWords);
-        url.searchParams.set('date', date);
-        if (timeOfNextPuzzle) {
-            url.searchParams.set('timeOfNextPuzzle', timeOfNextPuzzle);
-        }
-        window.location.href = url.href;
+        redirectToGame(puzzle.letters, encode(puzzle.words), puzzle.date, puzzle.timeOfNextPuzzle);
+        return true;
     }
+    return false;
+}
+
+export function loadPuzzle(puzzleId) {
+    const savedState = Storage.getGameState(puzzleId);
+    if (savedState) {
+        const dateMatch = puzzleId.match(/^puzzle_([^_]+)_/);
+        const date = dateMatch ? dateMatch[1] : 'custom';
+        redirectToGame(savedState.letters.join(''), encode(savedState.words.join(',')), date, savedState.timeOfNextPuzzle);
+        return true;
+    }
+    return false;
+}
+
+function redirectToGame(letters, encodedWords, date, timeOfNextPuzzle) {
+    const url = new URL('index.html', window.location.origin + window.location.pathname);
+    url.searchParams.set('letters', letters);
+    url.searchParams.set('words', encodedWords);
+    url.searchParams.set('date', date);
+    if (timeOfNextPuzzle) {
+        url.searchParams.set('timeOfNextPuzzle', timeOfNextPuzzle);
+    }
+    window.location.href = url.href;
 }
 
 async function getPuzzle() {

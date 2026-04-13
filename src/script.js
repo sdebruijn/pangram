@@ -58,9 +58,13 @@ const unguessedWordsList = document.getElementById('unguessed-words-list');
 const copyStatsBtn = document.getElementById('copy-stats-btn');
 const statsOutput = document.getElementById('stats-output');
 const todayPuzzleMenuItem = document.getElementById('today-puzzle-menu-item');
+const mainMenu = document.getElementById('main-menu');
 
 todayPuzzleMenuItem.addEventListener('click', async () => {
-    await loadTodayPuzzle();
+    const reloaded = await loadTodayPuzzle(puzzleId);
+    if (!reloaded) {
+        mainMenu.hidePopover();
+    }
 });
 
 const useOutputBox = localStorage.getItem('use-output-box') === 'true';
