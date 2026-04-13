@@ -43,6 +43,6 @@ setupForm.addEventListener('formdata', (event) => {
         .replaceAll(/,,+/g, ',');
     const encodedWords = encode(words);
     formData.set('words', encodedWords);
-    // The 'letters' field doesn't need to be modified here because its value
-    // is already correctly formatted (lowercase) and validated in the 'submit' event.
+    formData.set('letters', formData.get('letters').toLowerCase());
+    formData.set('date', 'custom');
 });
