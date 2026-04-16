@@ -180,7 +180,7 @@ ul#guessed-words-list, ul#unguessed-words-list {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    margin-block-end: 3rem;
+    margin-block-end: calc(env(safe-area-inset-bottom) + 56px + 1rem);
 }
 
 .letter-grid {
