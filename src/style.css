@@ -318,6 +318,12 @@ ul#guessed-words-list, ul#unguessed-words-list {
     color: var(--color-warning);
 }
 
+#recently-guessed-words-list {
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
 .incorrect-word {
     color: var(--color-danger);
 }

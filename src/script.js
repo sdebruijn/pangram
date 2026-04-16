@@ -1,5 +1,5 @@
 import { Game } from './game.js';
-import { isValidLetters, decode } from './helper.js';
+import { isValidLetters, decode, dateToday } from './helper.js';
 import { Storage } from './storage.js';
 import { loadTodayPuzzle, loadPuzzle } from './puzzle-loader.js';
 
@@ -70,7 +70,7 @@ todayPuzzleMenuItem.addEventListener('click', async () => {
 populateMenu();
 
 function populateMenu() {
-    const today = new Date().toISOString().split('T')[0];
+    const today = dateToday();
     const puzzles = Storage.getPuzzlesList()
         .filter(id => !id.startsWith(`puzzle_${today}_`))
         .sort()

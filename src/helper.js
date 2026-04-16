@@ -1,3 +1,9 @@
+export function dateToday() {
+    return new Date().toLocaleDateString('sv-SE', {
+        timeZone: 'Europe/Amsterdam'
+    });
+}
+
 export function encode(string) {
     return btoa(encodeURIComponent(string))
         .replaceAll('+', '-')

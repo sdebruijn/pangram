@@ -1,8 +1,8 @@
-import { encode } from './helper.js';
+import { encode, dateToday } from './helper.js';
 import { Storage } from './storage.js';
 
 export async function loadTodayPuzzle(currentPuzzleId) {
-    const today = new Date().toISOString().split('T')[0];
+    const today = dateToday();
 
     if (currentPuzzleId && currentPuzzleId.startsWith(`puzzle_${today}_`)) {
         return false;
