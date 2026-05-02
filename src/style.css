@@ -205,7 +205,7 @@ ul#guessed-words-list, ul#unguessed-words-list {
 }
 
 .letter-key {
-    touch-action: manipulation;
+    touch-action: none;
     user-select: none;
     width: 4rem;
     height: 4rem;
@@ -234,7 +234,7 @@ ul#guessed-words-list, ul#unguessed-words-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    touch-action: manipulation;
+    touch-action: none;
 }
 
 .action-btn {
