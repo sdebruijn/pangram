@@ -74,7 +74,8 @@ function populateMenu() {
     const puzzles = Storage.getPuzzlesList()
         .filter(id => !id.startsWith(`puzzle_${today}_`))
         .sort()
-        .reverse();
+        .reverse()
+        .slice(0, 6);
 
     puzzles.forEach(id => {
         // Expected format: puzzle_YYYY-MM-DD_letters or puzzle_custom_letters
