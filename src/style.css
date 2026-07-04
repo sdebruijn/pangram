@@ -423,3 +423,114 @@ ul#guessed-words-list, ul#unguessed-words-list {
     font-weight: bold;
     color: var(--color-primary);
 }
+
+#settings-menu-item {
+    border-top: 1px solid var(--color-control);
+    margin-top: 0.25rem;
+    padding-top: 0.75rem;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.settings-dialog {
+    border: none;
+    border-radius: var(--control-radius);
+    padding: 1.5rem;
+    background-color: var(--background-color-control);
+    color: var(--text-color);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    width: 340px;
+    box-sizing: border-box;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    
+    h2 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+    
+    .settings-intro {
+        margin-bottom: 1.25rem;
+        font-size: 0.85rem;
+        color: var(--word-length-color);
+        line-height: 1.4;
+    }
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    max-height: 45vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    
+    label {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    input {
+        width: 80px;
+        text-align: center;
+        padding: 0.4rem;
+        border: 1px solid var(--color-control);
+        border-radius: var(--control-radius);
+        font-size: 0.95rem;
+        background-color: var(--background-color-control);
+        color: var(--text-color);
+    }
+}
+
+.settings-grid::-webkit-scrollbar {
+    width: 6px;
+}
+.settings-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+.settings-grid::-webkit-scrollbar-thumb {
+    background-color: var(--color-control);
+    border-radius: 3px;
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.settings-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-control);
+    border-radius: var(--control-radius);
+    background-color: var(--color-secondary);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    
+    &:hover {
+        background-color: var(--color-control);
+    }
+    
+    &.primary {
+        background-color: var(--color-primary);
+        color: white;
+        border: none;
+        
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+}

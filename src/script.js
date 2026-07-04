@@ -14,6 +14,11 @@ const DEFAULT_WORDS = [
     "zwanger", "zwangere", "zwanzen", "zweer", "zweren"
 ];
 
+const defaultMarkers = {
+    "Genie": "🇳🇱",
+    "Maximaal": "🏁",
+};
+
 const url = new URL(window.location.href);
 
 const lettersParam = url.searchParams.get('letters');
@@ -75,7 +80,7 @@ function populateMenu() {
         .filter(id => !id.startsWith(`puzzle_${today}_`))
         .sort()
         .reverse()
-        .slice(0, 6);
+        .slice(0, 5);
 
     puzzles.forEach(id => {
         // Expected format: puzzle_YYYY-MM-DD_letters or puzzle_custom_letters
@@ -110,13 +115,21 @@ function populateMenu() {
         });
         mainMenu.appendChild(li);
     });
-}
 
-const useOutputBox = localStorage.getItem('use-output-box') === 'true';
-if (useOutputBox) {
-    // For users without support of the Clipboard API.
-    copyStatsBtn.style.display = 'none';
-    statsOutput.style.display = 'block';
+    // Add Settings menu item as the last entry
+    const settingsLi = document.createElement('li');
+    settingsLi.role = 'menuitem';
+    settingsLi.id = 'settings-menu-item';
+    settingsLi.textContent = 'Settings';
+    settingsLi.addEventListener('click', () => {
+        mainMenu.hidePopover();
+        initSettingsDialog();
+        const settingsDialog = document.getElementById('settings-dialog');
+        if (settingsDialog) {
+            settingsDialog.showModal();
+        }
+    });
+    mainMenu.appendChild(settingsLi);
 }
 
 centerLetterKey.innerText = game.centerLetter;
@@ -125,12 +138,44 @@ maxScoreSpan.textContent = game.maxScore;
 updateGameStateDisplay();
 updateRevealDisplay();
 
+// Settings Event Listeners
+const settingsForm = document.getElementById('settings-form');
+const settingsDialog = document.getElementById('settings-dialog');
+const settingsCloseBtn = document.getElementById('settings-close-btn');
+
+if (settingsForm && settingsDialog && settingsCloseBtn) {
+    settingsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const markers = {};
+        game.levels.forEach(level => {
+            const input = document.getElementById(`marker-${level.name}`);
+            if (input) {
+                markers[level.name] = input.value;
+            }
+        });
+        const finishInput = document.getElementById('marker-Finish');
+        if (finishInput) {
+            markers['Finish'] = finishInput.value;
+        }
+        localStorage.setItem('level-markers', JSON.stringify(markers));
+        updateLevelMarker();
+        settingsDialog.close();
+    });
+
+    settingsCloseBtn.addEventListener('click', () => {
+        settingsDialog.close();
+    });
+}
+
 function updateLetters() {
     normalLetterKeys.forEach((key,idx) => key.innerText = game.otherLetters[idx]);
 }
 
 copyStatsBtn.addEventListener('click', () => {
-    const wordStats = game.createWordStats();
+    const settings = {
+        levelMarkers: getLevelMarkers(),
+    }
+    const wordStats = game.createWordStats(settings);
     navigator.clipboard.writeText(wordStats)
         .then(() => {
             console.log('Stats copied to clipboard.');
@@ -218,10 +263,6 @@ function updateGameStateDisplay() {
     updateGuessedWordsDisplay();
     updateScoreDisplay();
     saveGameState();
-
-    if (useOutputBox) {
-        statsOutput.textContent = game.createWordStats();
-    }
 }
 
 function updateRevealDisplay() {
@@ -281,9 +322,47 @@ function updateGuessedWordsDisplay() {
         li.appendChild(lengthSpan);
         guessedWordsList.appendChild(li);
     });
+
+    updateLevelMarker();
 }
 
 function updateScoreDisplay() {
     scoreSpan.textContent = game.getScore();
     levelSpan.textContent = game.getCurrentLevel();
+}
+
+function getLevelMarkers() {
+    const saved = localStorage.getItem('level-markers');
+    if (saved) {
+        try {
+            return JSON.parse(saved);
+        } catch (e) {
+            // ignore
+        }
+    }
+    return defaultMarkers;
+}
+
+function initSettingsDialog() {
+    const settingsGrid = document.querySelector('.settings-grid');
+    if (!settingsGrid) return;
+    
+    settingsGrid.innerHTML = '';
+    const markers = getLevelMarkers();
+    
+    game.levels.forEach(level => {
+        const label = document.createElement('label');
+        label.textContent = level.name;
+        label.setAttribute('for', `marker-${level.name}`);
+        
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = `marker-${level.name}`;
+        input.value = markers[level.name] || '';
+        input.placeholder = 'bijv. 🌟';
+        input.maxLength = 10;
+        
+        settingsGrid.appendChild(label);
+        settingsGrid.appendChild(input);
+    });
 }

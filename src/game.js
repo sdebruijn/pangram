@@ -130,10 +130,17 @@ export class Game {
         return sortedWords.map(word => word.replaceAll('ij', 'ĳ'));
     }
 
-    createWordStats() {
+    createWordStats(settings) {
         const score = this.calculateScore(this.guessedWords);
         const wordCount = this.guessedWords.length;
-        let stats = `${wordCount}/${score}\n`;
+        const level = this.getCurrentLevel();
+        const levelMarker = settings.levelMarkers[level] || '';
+
+        console.log(settings);
+        console.log(level);
+        console.log(levelMarker);
+
+        let stats = `${wordCount}/${score} ${levelMarker}\n`;
         const sortedWords = this.sortedGuessedWords();
         const byStartLetter = Object.groupBy(sortedWords, (word) => word[0]);
         for (const [startLetter, words] of Object.entries(byStartLetter)) {
