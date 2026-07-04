@@ -238,7 +238,17 @@ function updateUnguessedWordsDisplay() {
     unguessedWords.map(word => word.replaceAll('ĳ', 'ij')).sort().map(word => word.replaceAll('ij', 'ĳ')).forEach(word => {
         const li = document.createElement('li');
         if (game.isPangram(word)) li.classList.add('pangram')
-        li.textContent = word;
+        
+        const wordSpan = document.createElement('span');
+        wordSpan.classList.add('word-text');
+        wordSpan.textContent = word;
+        
+        const lengthSpan = document.createElement('span');
+        lengthSpan.classList.add('word-length');
+        lengthSpan.textContent = word.length;
+        
+        li.appendChild(wordSpan);
+        li.appendChild(lengthSpan);
         unguessedWordsList.appendChild(li);
     });
 }
@@ -258,7 +268,17 @@ function updateGuessedWordsDisplay() {
     game.sortedGuessedWords().forEach(word => {
         const li = document.createElement('li');
         if (game.isPangram(word)) li.classList.add('pangram')
-        li.textContent = word;
+        
+        const wordSpan = document.createElement('span');
+        wordSpan.classList.add('word-text');
+        wordSpan.textContent = word;
+        
+        const lengthSpan = document.createElement('span');
+        lengthSpan.classList.add('word-length');
+        lengthSpan.textContent = word.length;
+        
+        li.appendChild(wordSpan);
+        li.appendChild(lengthSpan);
         guessedWordsList.appendChild(li);
     });
 }
