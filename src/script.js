@@ -158,7 +158,6 @@ if (settingsForm && settingsDialog && settingsCloseBtn) {
             markers['Finish'] = finishInput.value;
         }
         localStorage.setItem('level-markers', JSON.stringify(markers));
-        updateLevelMarker();
         settingsDialog.close();
     });
 
@@ -322,8 +321,6 @@ function updateGuessedWordsDisplay() {
         li.appendChild(lengthSpan);
         guessedWordsList.appendChild(li);
     });
-
-    updateLevelMarker();
 }
 
 function updateScoreDisplay() {
