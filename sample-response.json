@@ -1,0 +1,384 @@
+{
+    "analytics": {
+        "emitEvents": [
+            "aborted",
+            "closed",
+            "completed",
+            "paused",
+            "share",
+            "started",
+            "visitUrl"
+        ]
+    },
+    "brand": "dpg",
+    "date": "2026-04-12",
+    "disableAutoStart": true,
+    "disableExternalLinks": true,
+    "disableWikiLinks": true,
+    "disabledGameButtons": [
+        "restart"
+    ],
+    "features": {
+        "streaks": false
+    },
+    "feedbackForm": {
+        "showFollowUp": true,
+        "showSuggestion": true
+    },
+    "finishModal": {
+        "showFeedbackLink": true
+    },
+    "gridHorizontalMargin": 10,
+    "menuConfig": {
+        "hideDarkMode": false,
+        "menuType": "button-title-menu"
+    },
+    "organisationId": "dpg",
+    "playerId": "dpg-ox1MyqZaR2yMnteGqHdf",
+    "promptFeedbackAfterFoundWords": 15,
+    "puzzleId": "dpg-MKCGj0ghAoGdJW3OFEY0-842ad1f27f30-20260412",
+    "renderer": "spellwise",
+    "showGameExplanation": true,
+    "showMaximumWordCount": true,
+    "showShareModal": false,
+    "themes": {
+        "darkMode": {
+            "darkMode": true
+        },
+        "default": {}
+    },
+    "timeOfNextPuzzle": 1776031200000,
+    "translations": {
+        "nl": {
+            "general": {
+                "gameButtons": {
+                    "quit": "Afronden"
+                },
+                "prompts": {
+                    "finished": {
+                        "textReachedLevel": "Je hebt het hoogste level behaald. Speel je morgen weer?",
+                        "textReachedLevelPlayMore": "Je hebt het hoogste level behaald. Je kunt het spel nu afsluiten of nog meer woorden zoeken. En speel je morgen weer?"
+                    }
+                }
+            },
+            "spellwise": {
+                "errors": {
+                    "notListed": "De puzzelredactie heeft dit woord niet opgenomen in de puzzel van de dag."
+                },
+                "onboarding": {
+                    "p1": {
+                        "bottomText": "Klik op \"Spelregels\" om alle spelregels en toegestane woordcombinaties te bekijken of ga via het Menu naar \"Hoe werkt het\". Benieuwd naar de woorden van gisteren? Klik dan op \"Gisteren\" in het Menu.",
+                        "topText": "Vind de door de redactie gekozen woorden. Maak zoveel mogelijk woorden met de gegeven letters. Woorden moeten minimaal 4 letters lang zijn en letters mogen vaker voorkomen. De letter in het midden moét bij elk woord gebruikt worden. Hoe langer het woord, hoe meer punten je krijgt. Kun jij het hoogste level behalen?"
+                    }
+                },
+                "prompts": {
+                    "beta": {
+                        "description": "Deze nieuwe puzzel is de eerste die we maakten exclusief voor abonnees. Tijdens de huidige testfase krijgen alle spelers toegang. Daarna is een abonnement op jouw favoriete nieuwsmerk genoeg om je toegang te behouden. Veel spelplezier!"
+                    },
+                    "finished": {
+                        "maxLevel": {
+                            "title": "Goed gedaan, jij bent een {rank}!"
+                        },
+                        "textReachedLevel": "Je hebt het hoogste level behaald. Speel je morgen weer?",
+                        "textReachedLevelPlayMore": "Je hebt het hoogste level behaald. Je kunt het spel nu afsluiten of nog meer woorden zoeken. En speel je morgen weer?"
+                    }
+                },
+                "ranks": {
+                    "level1": "Opwarmronde",
+                    "level2": "Aardig begin",
+                    "level3": "Goed bezig",
+                    "level4": "Ga zo door",
+                    "level5": "Topper",
+                    "level6": "Indrukwekkend",
+                    "level7": "Meesterlijk",
+                    "level8": "Briljant",
+                    "level9": "Genie"
+                }
+            },
+            "suggestion": {
+                "button": "Vragen?",
+                "text": "De puzzelredactie heeft een selectie van woorden opgesteld op basis van de 7-letters van vandaag. Heb jij een woord gevonden die niet is opgenomen in de puzzel van de dag maar absoluut niet mag ontbreken? <br/><br/> Wil je het woord \"{suggestion}\" insturen als suggestie voor de puzzel?",
+                "title": "Woord niet in de puzzel?"
+            }
+        }
+    },
+    "puzzle": {
+        "allWords": [
+            "eonen",
+            "hoenen",
+            "holen",
+            "holle",
+            "honken",
+            "kloeke",
+            "kloeken",
+            "klokke",
+            "klonk",
+            "klonken",
+            "knok",
+            "knoken",
+            "knokke",
+            "knollen",
+            "koeken",
+            "koekoeken",
+            "koele",
+            "koene",
+            "kohl",
+            "kollen",
+            "konen",
+            "konĳnen",
+            "kook",
+            "leone",
+            "loen",
+            "loene",
+            "loken",
+            "lollen",
+            "lone",
+            "none",
+            "nonkel",
+            "nonnen",
+            "oeken",
+            "oenen",
+            "okee",
+            "olĳke",
+            "onkel"
+        ],
+        "id": "842ad1f27f30",
+        "letters": [
+            "e",
+            "h",
+            "k",
+            "l",
+            "n",
+            "o",
+            "ĳ"
+        ],
+        "origin": "creataal",
+        "originFile": "spelwijze_NED_2026_04_12_hoeklijn_o.txt",
+        "originId": "OEHKLNĲ",
+        "requiredLetter": "o",
+        "wordGoal": 100,
+        "words": [
+            {
+                "p": "konĳnenhok",
+                "s": "KONĲNENHOK"
+            },
+            {
+                "p": "konĳnenhol",
+                "s": "KONĲNENHOL"
+            },
+            {
+                "p": "klokkĳken",
+                "s": "KLOKKĲKEN"
+            },
+            {
+                "p": "kolenhok",
+                "s": "KOLENHOK"
+            },
+            {
+                "p": "konkelen",
+                "s": "KONKELEN"
+            },
+            {
+                "p": "kookhoek",
+                "s": "KOOKHOEK"
+            },
+            {
+                "p": "hoeklĳn",
+                "s": "HOEKLĲN"
+            },
+            {
+                "p": "klokken",
+                "s": "KLOKKEN"
+            },
+            {
+                "p": "knokkel",
+                "s": "KNOKKEL"
+            },
+            {
+                "p": "knokken",
+                "s": "KNOKKEN"
+            },
+            {
+                "p": "koekoek",
+                "s": "KOEKOEK"
+            },
+            {
+                "p": "kolonel",
+                "s": "KOLONEL"
+            },
+            {
+                "p": "hoeken",
+                "s": "HOEKEN"
+            },
+            {
+                "p": "hokken",
+                "s": "HOKKEN"
+            },
+            {
+                "p": "hollen",
+                "s": "HOLLEN"
+            },
+            {
+                "p": "klonen",
+                "s": "KLONEN"
+            },
+            {
+                "p": "knokel",
+                "s": "KNOKEL"
+            },
+            {
+                "p": "koelen",
+                "s": "KOELEN"
+            },
+            {
+                "p": "kokkel",
+                "s": "KOKKEL"
+            },
+            {
+                "p": "kokken",
+                "s": "KOKKEN"
+            },
+            {
+                "p": "kolken",
+                "s": "KOLKEN"
+            },
+            {
+                "p": "konkel",
+                "s": "KONKEL"
+            },
+            {
+                "p": "lokken",
+                "s": "LOKKEN"
+            },
+            {
+                "p": "lonken",
+                "s": "LONKEN"
+            },
+            {
+                "p": "nokken",
+                "s": "NOKKEN"
+            },
+            {
+                "p": "honen",
+                "s": "HONEN"
+            },
+            {
+                "p": "kloek",
+                "s": "KLOEK"
+            },
+            {
+                "p": "kloon",
+                "s": "KLOON"
+            },
+            {
+                "p": "knook",
+                "s": "KNOOK"
+            },
+            {
+                "p": "koken",
+                "s": "KOKEN"
+            },
+            {
+                "p": "kolen",
+                "s": "KOLEN"
+            },
+            {
+                "p": "konĳn",
+                "s": "KONĲN"
+            },
+            {
+                "p": "lonen",
+                "s": "LONEN"
+            },
+            {
+                "p": "oehoe",
+                "s": "OEHOE"
+            },
+            {
+                "p": "oeloe",
+                "s": "OELOE"
+            },
+            {
+                "p": "hoek",
+                "s": "HOEK"
+            },
+            {
+                "p": "hoen",
+                "s": "HOEN"
+            },
+            {
+                "p": "hole",
+                "s": "HOLE"
+            },
+            {
+                "p": "honk",
+                "s": "HONK"
+            },
+            {
+                "p": "hoon",
+                "s": "HOON"
+            },
+            {
+                "p": "klok",
+                "s": "KLOK"
+            },
+            {
+                "p": "knol",
+                "s": "KNOL"
+            },
+            {
+                "p": "koek",
+                "s": "KOEK"
+            },
+            {
+                "p": "koel",
+                "s": "KOEL"
+            },
+            {
+                "p": "koen",
+                "s": "KOEN"
+            },
+            {
+                "p": "kolk",
+                "s": "KOLK"
+            },
+            {
+                "p": "kool",
+                "s": "KOOL"
+            },
+            {
+                "p": "koon",
+                "s": "KOON"
+            },
+            {
+                "p": "lonk",
+                "s": "LONK"
+            },
+            {
+                "p": "look",
+                "s": "LOOK"
+            },
+            {
+                "p": "loon",
+                "s": "LOON"
+            },
+            {
+                "p": "neon",
+                "s": "NEON"
+            },
+            {
+                "p": "noen",
+                "s": "NOEN"
+            },
+            {
+                "p": "nono",
+                "s": "NONO"
+            },
+            {
+                "p": "olĳk",
+                "s": "OLĲK"
+            }
+        ]
+    },
+    "customCss": "[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions{display:flex;flex-wrap:wrap}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button{flex:0;padding:16px !important}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button:first-child{order:3}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button:nth-child(2){background-color:var(--color-dark-gray)}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button:nth-child(2) svg{fill:var(--color-white)}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button span.label{display:none} [id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions{display:flex;flex-wrap:wrap}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button{flex:0;padding:16px !important}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button:first-child{order:3}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button:nth-child(2){background-color:var(--color-dark-gray)}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button:nth-child(2) svg{fill:var(--color-white)}[id^='player-dpg'].player-container .game-spellwise .ActionMenu.actions button span.label{display:none}[id^='player-dpg'].player-container .game-sudoku .ActionMenu.actions .label,[id^='player-dpg'].player-container .game-hyperSudoku .ActionMenu.actions .label{font-size:1.75rem;margin-left:-1px}"
+}
